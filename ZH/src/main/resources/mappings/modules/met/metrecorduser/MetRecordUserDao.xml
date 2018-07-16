@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.met.dao.metrecorduser.MetRecordUserDao">
+    
+	<sql id="metRecordUserColumns">
+		a.id AS "id",
+		a.muser_id AS "muserId",
+		a.record_id AS "recordId"
+	</sql>
+	
+	<sql id="metRecordUserJoins">
+	</sql>
+    
+	<select id="get" resultType="MetRecordUser">
+		SELECT 
+			<include refid="metRecordUserColumns"/>
+		FROM met_record_user a
+		<include refid="metRecordUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MetRecordUser">
+		SELECT 
+			<include refid="metRecordUserColumns"/>
+		FROM met_record_user a
+		<include refid="metRecordUserJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MetRecordUser">
+		SELECT 
+			<include refid="metRecordUserColumns"/>
+		FROM met_record_user a
+		<include refid="metRecordUserJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO met_record_user(
+			id,
+			muser_id,
+			record_id
+		) VALUES (
+			#{id},
+			#{muserId},
+			#{recordId}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE met_record_user SET 	
+			muser_id = #{muserId},
+			record_id = #{recordId}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM met_record_user
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

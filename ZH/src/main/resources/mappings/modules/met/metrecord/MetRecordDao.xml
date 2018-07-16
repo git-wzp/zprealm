@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.met.dao.metrecord.MetRecordDao">
+
+    <sql id="metRecordColumns">
+		a.id AS "id",
+		a.title AS "title",
+		a.type AS "type",
+		a.content AS "content",
+		a.money AS "money",
+		a.voucher_writedate AS "voucherWritedate",
+		a.voucher_commitdate AS "voucherCommitdate",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		c.name as "mUserName"
+	</sql>
+
+    <sql id="metRecordJoins">
+    </sql>
+
+    <select id="get" resultType="MetRecord">
+        SELECT
+        <include refid="metRecordColumns"/>
+        ,c.name as "mUserName"
+        FROM met_record a
+        LEFT JOIN met_record_user b ON a.id = b.record_id
+        LEFT JOIN met_user c ON c.id = b.muser_id
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="MetRecord">
+        SELECT
+        <include refid="metRecordColumns"/>
+        FROM met_record a
+        LEFT JOIN met_record_user b ON a.id = b.record_id
+        LEFT JOIN met_user c ON c.id = b.muser_id
+        <include refid="metRecordJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="title != null and title != ''">
+                AND a.title LIKE
+                <if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+            </if>
+            <if test="type != null and type != '' and type != '0'">
+                AND a.type = #{type}
+            </if>
+            <if test="content != null and content != ''">
+                AND a.content LIKE
+                <if test="dbName == 'oracle'">'%'||#{content}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{content}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{content},'%')</if>
+            </if>
+            <if test="money != null and money != ''">
+                AND a.money = #{money}
+            </if>
+            <if test="beginVoucherWritedate != null and endVoucherWritedate != null and beginVoucherWritedate != '' and endVoucherWritedate != ''">
+                AND a.voucher_writedate BETWEEN #{beginVoucherWritedate} AND #{endVoucherWritedate}
+            </if>
+            <if test="beginVoucherCommitdate != null and endVoucherCommitdate != null and beginVoucherCommitdate != '' and endVoucherCommitdate != ''">
+                AND a.voucher_commitdate BETWEEN #{beginVoucherCommitdate} AND #{endVoucherCommitdate}
+            </if>
+            <if test="mUserName != null and mUserName != ''">
+                and c.name like concat('%',#{mUserName},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="MetRecord">
+        SELECT
+        <include refid="metRecordColumns"/>
+        FROM met_record a
+        <include refid="metRecordJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+		INSERT INTO met_record(
+			id,
+			title,
+			type,
+			content,
+			money,
+			voucher_writedate,
+			voucher_commitdate,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{title},
+			#{type},
+			#{content},
+			#{money},
+			#{voucherWritedate},
+			#{voucherCommitdate},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE met_record SET 	
+			title = #{title},
+			type = #{type},
+			content = #{content},
+			money = #{money},
+			voucher_writedate = #{voucherWritedate},
+			voucher_commitdate = #{voucherCommitdate},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+
+    <update id="delete">
+		UPDATE met_record SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+</mapper>
