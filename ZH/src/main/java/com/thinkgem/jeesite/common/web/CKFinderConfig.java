@@ -28,10 +28,11 @@ public class CKFinderConfig extends Configuration {
 	
 	@Override
     protected Configuration createConfigurationInstance() {
-		Principal principal = (Principal) UserUtils.getPrincipal();
+ 		Principal principal = (Principal) UserUtils.getPrincipal();
 		if (principal == null){
 			return new CKFinderConfig(this.servletConf);
 		}
+		//作者默认给了所有人 增删改查的权限，如果又需要 把注释打开  -wzp
 		boolean isView = true;//UserUtils.getSubject().isPermitted("cms:ckfinder:view");
 		boolean isUpload = true;//UserUtils.getSubject().isPermitted("cms:ckfinder:upload");
 		boolean isEdit = true;//UserUtils.getSubject().isPermitted("cms:ckfinder:edit");

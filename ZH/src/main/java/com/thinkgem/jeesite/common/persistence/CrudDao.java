@@ -3,6 +3,8 @@
  */
 package com.thinkgem.jeesite.common.persistence;
 
+import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @version 2014-05-16
  * @param <T>
  */
+@MyBatisDao
 public interface CrudDao<T> extends BaseDao {
 
 	/**

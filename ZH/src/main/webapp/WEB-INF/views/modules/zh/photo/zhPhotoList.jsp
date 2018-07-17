@@ -41,11 +41,10 @@
 			<tr>
 				<th>标题</th>
 				<th>点击数</th>
-				<th>权重，越大越靠前</th>
+				<th>权重</th>
 				<th>关键字</th>
 				<th>创建者</th>
 				<th>更新时间</th>
-				<th>备注信息</th>
 				<shiro:hasPermission name="zh:photo:zhPhoto:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -70,9 +69,7 @@
 				<td>
 					<fmt:formatDate value="${zhPhoto.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
-				<td>
-					${zhPhoto.remarks}
-				</td>
+				 
 				<shiro:hasPermission name="zh:photo:zhPhoto:edit"><td>
     				<a href="${ctx}/zh/photo/zhPhoto/form?id=${zhPhoto.id}">修改</a>
 					<a href="${ctx}/zh/photo/zhPhoto/delete?id=${zhPhoto.id}" onclick="return confirmx('确认要删除该图片吗？', this.href)">删除</a>

@@ -45,6 +45,13 @@
 				<form:input path="url" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
+		<li><label for="" class="control-label">上传图片:<span style="color: red">*</span></label>
+					<div class="controls">
+						<form:hidden id="url" path="url" htmlEscape="false"
+							maxlength="255"  class="input-xlarge  required"/>
+						<sys:ckfinder input="url" type="images" uploadPath="" selectMultiple="false" />
+					</div>
+				</li>
 		<div class="control-group">
 			<label class="control-label">点击数：</label>
 			<div class="controls">
@@ -52,7 +59,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">权重，越大越靠前：</label>
+			<label class="control-label">权重：</label>
 			<div class="controls">
 				<form:input path="weight" htmlEscape="false" class="input-xlarge "/>
 			</div>

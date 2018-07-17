@@ -130,10 +130,11 @@ public class Global {
 	}
 
 	/**
-	 * 获取上传文件的根目录
+	 * 获取上传文件的根目录 根目录的配置在 jeesite.properties文件中  userfiles.basedir= 如果没有  默认为根目录
 	 * @return
 	 */
 	public static String getUserfilesBaseDir() {
+		
 		String dir = getConfig("userfiles.basedir");
 		if (StringUtils.isBlank(dir)){
 			try {

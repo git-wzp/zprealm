@@ -41,6 +41,7 @@ public class CKFinderConnectorServlet extends ConnectorServlet {
 	
 	private void prepareGetResponse(final HttpServletRequest request,
 			final HttpServletResponse response, final boolean post) throws ServletException {
+		//获取当前登录对象 
 		Principal principal = (Principal) UserUtils.getPrincipal();
 		if (principal == null){
 			return;
@@ -48,6 +49,7 @@ public class CKFinderConnectorServlet extends ConnectorServlet {
 		String command = request.getParameter("command");
 		String type = request.getParameter("type");
 		// 初始化时，如果startupPath文件夹不存在，则自动创建startupPath文件夹
+		// 初始化：打开文件上传窗口的时候
 		if ("Init".equals(command)){
 			String startupPath = request.getParameter("startupPath");// 当前文件夹可指定为模块名
 			if (startupPath!=null){

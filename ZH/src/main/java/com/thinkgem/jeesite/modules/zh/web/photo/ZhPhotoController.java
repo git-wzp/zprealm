@@ -46,6 +46,7 @@ public class ZhPhotoController extends BaseController {
 		return entity;
 	}
 	
+	@RequiresPermissions("zh:photo:zhPhoto:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(ZhPhoto zhPhoto, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<ZhPhoto> page = zhPhotoService.findPage(new Page<ZhPhoto>(request, response), zhPhoto); 
@@ -53,12 +54,14 @@ public class ZhPhotoController extends BaseController {
 		return "modules/zh/photo/zhPhotoList";
 	}
 
+	@RequiresPermissions("zh:photo:zhPhoto:view")
 	@RequestMapping(value = "form")
 	public String form(ZhPhoto zhPhoto, Model model) {
 		model.addAttribute("zhPhoto", zhPhoto);
 		return "modules/zh/photo/zhPhotoForm";
 	}
 
+	@RequiresPermissions("zh:photo:zhPhoto:edit")
 	@RequestMapping(value = "save")
 	public String save(ZhPhoto zhPhoto, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, zhPhoto)){
@@ -69,6 +72,7 @@ public class ZhPhotoController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/zh/photo/zhPhoto/?repage";
 	}
 	
+	@RequiresPermissions("zh:photo:zhPhoto:edit")
 	@RequestMapping(value = "delete")
 	public String delete(ZhPhoto zhPhoto, RedirectAttributes redirectAttributes) {
 		zhPhotoService.delete(zhPhoto);

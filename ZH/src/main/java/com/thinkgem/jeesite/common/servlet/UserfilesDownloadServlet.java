@@ -30,16 +30,21 @@ public class UserfilesDownloadServlet extends HttpServlet {
 
 	public void fileOutputStream(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException {
+		//获取当前的访问uri 
 		String filepath = req.getRequestURI();
+		//第一次出现 userfiles是在第几个字符 
 		int index = filepath.indexOf(Global.USERFILES_BASE_URL);
 		if(index >= 0) {
+			//如果路径中存在userfiles   从”userfiles/“ 后面一个字符开始读
 			filepath = filepath.substring(index + Global.USERFILES_BASE_URL.length());
 		}
+		//把uri进行utf-8转码 
 		try {
 			filepath = UriUtils.decode(filepath, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			logger.error(String.format("解释文件路径失败，URL地址为%s", filepath), e1);
 		}
+		//创建一个文件对象，文件url是jeesite里的目录位置+userfiles+filepath
 		File file = new File(Global.getUserfilesBaseDir() + Global.USERFILES_BASE_URL + filepath);
 		try {
 			FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
