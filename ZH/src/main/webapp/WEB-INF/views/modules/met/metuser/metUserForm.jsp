@@ -28,7 +28,7 @@
 <body>
 	<ul class="nav nav-tabs">
 		<li><a href="${ctx}/met/metuser/metUser/">会议参会人员列表</a></li>
-		<li class="active"><a href="${ctx}/met/metuser/metUser/form?id=${metUser.id}">会议参会人员${not empty metUser.id?'修改':'添加'}查看</a></li>
+		<li class="active"><a href="${ctx}/met/metuser/metUser/form?id=${metUser.id}">会议参会人员${not empty metUser.id?'修改':'添加'}<shiro:lacksPermission name="met:metuser:metUser:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="metUser" action="${ctx}/met/metuser/metUser/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>

@@ -3,9 +3,12 @@
  */
 package com.thinkgem.jeesite.modules.met.web.metuser;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.met.entity.metuser.MetUser;
+import com.thinkgem.jeesite.modules.met.service.metuser.MetUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.met.entity.metuser.MetUser;
-import com.thinkgem.jeesite.modules.met.service.metuser.MetUserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 会议参会人员Controller
@@ -45,7 +44,7 @@ public class MetUserController extends BaseController {
 		}
 		return entity;
 	}
-	
+	@RequiresPermissions("met:metuser:metUser:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(MetUser metUser, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<MetUser> page = metUserService.findPage(new Page<MetUser>(request, response), metUser); 
@@ -53,12 +52,14 @@ public class MetUserController extends BaseController {
 		return "modules/met/metuser/metUserList";
 	}
 
+	@RequiresPermissions("met:metuser:metUser:view")
 	@RequestMapping(value = "form")
 	public String form(MetUser metUser, Model model) {
 		model.addAttribute("metUser", metUser);
 		return "modules/met/metuser/metUserForm";
 	}
 
+	@RequiresPermissions("met:metuser:metUser:edit")
 	@RequestMapping(value = "save")
 	public String save(MetUser metUser, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, metUser)){
@@ -69,6 +70,7 @@ public class MetUserController extends BaseController {
 		return "redirect:"+Global.getAdminPath()+"/met/metuser/metUser/?repage";
 	}
 	
+	@RequiresPermissions("met:metuser:metUser:edit")
 	@RequestMapping(value = "delete")
 	public String delete(MetUser metUser, RedirectAttributes redirectAttributes) {
 		metUserService.delete(metUser);
