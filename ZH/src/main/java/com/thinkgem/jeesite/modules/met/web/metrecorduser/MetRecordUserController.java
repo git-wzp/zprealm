@@ -3,9 +3,12 @@
  */
 package com.thinkgem.jeesite.modules.met.web.metrecorduser;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.met.entity.metrecorduser.MetRecordUser;
+import com.thinkgem.jeesite.modules.met.service.metrecorduser.MetRecordUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,12 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.met.entity.metrecorduser.MetRecordUser;
-import com.thinkgem.jeesite.modules.met.service.metrecorduser.MetRecordUserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 会议与专家对照表Controller
@@ -60,6 +59,7 @@ public class MetRecordUserController extends BaseController {
 	}
 
 	@RequestMapping(value = "save")
+	@RequiresPermissions("met:metrecord:metRecord:edit")
 	public String save(MetRecordUser metRecordUser, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, metRecordUser)){
 			return form(metRecordUser, model);
@@ -70,6 +70,7 @@ public class MetRecordUserController extends BaseController {
 	}
 	
 	@RequestMapping(value = "delete")
+    @RequiresPermissions("met:metrecord:metRecord:edit")
 	public String delete(MetRecordUser metRecordUser, RedirectAttributes redirectAttributes) {
 		metRecordUserService.delete(metRecordUser);
 		addMessage(redirectAttributes, "删除会议-专家对照信息成功");

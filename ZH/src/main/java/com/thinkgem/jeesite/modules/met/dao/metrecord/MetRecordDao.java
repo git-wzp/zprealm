@@ -7,6 +7,8 @@ import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.met.entity.metrecord.MetRecord;
 
+import java.util.List;
+
 /**
  * 会议记录信息DAO接口
  * @author 王子鹏
@@ -14,5 +16,6 @@ import com.thinkgem.jeesite.modules.met.entity.metrecord.MetRecord;
  */
 @MyBatisDao
 public interface MetRecordDao extends CrudDao<MetRecord> {
-	
+
+    List<String> getMUserNames(String id);
 }

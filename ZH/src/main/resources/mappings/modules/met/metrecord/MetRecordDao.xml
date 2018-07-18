@@ -15,8 +15,7 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag",
-		c.name as "mUserName"
+		a.del_flag AS "delFlag"
 	</sql>
 
     <sql id="metRecordJoins">
@@ -25,19 +24,23 @@
     <select id="get" resultType="MetRecord">
         SELECT
         <include refid="metRecordColumns"/>
-        ,c.name as "mUserName"
         FROM met_record a
-        LEFT JOIN met_record_user b ON a.id = b.record_id
-        LEFT JOIN met_user c ON c.id = b.muser_id
         WHERE a.id = #{id}
     </select>
 
+    <!--正常情况只查询所有的会议记录 当需要根据参会人员姓名查询时 再选择多表联查-->
     <select id="findList" resultType="MetRecord">
         SELECT
         <include refid="metRecordColumns"/>
+            <if test="mUserId != null and mUserId != ''">
+              ,c.name as "mUserName"
+              ,c.id as "mUserId"
+            </if>
         FROM met_record a
-        LEFT JOIN met_record_user b ON a.id = b.record_id
-        LEFT JOIN met_user c ON c.id = b.muser_id
+            <if test="mUserId != null and mUserId != ''">
+                LEFT JOIN met_record_user b ON a.id = b.record_id
+                LEFT JOIN met_user c ON c.id = b.muser_id
+            </if>
         <include refid="metRecordJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
@@ -47,7 +50,7 @@
                 <if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
                 <if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
             </if>
-            <if test="type != null and type != '' and type != '0'">
+            <if test="type != null and type != '' and type != 0 ">
                 AND a.type = #{type}
             </if>
             <if test="content != null and content != ''">
@@ -65,8 +68,8 @@
             <if test="beginVoucherCommitdate != null and endVoucherCommitdate != null and beginVoucherCommitdate != '' and endVoucherCommitdate != ''">
                 AND a.voucher_commitdate BETWEEN #{beginVoucherCommitdate} AND #{endVoucherCommitdate}
             </if>
-            <if test="mUserName != null and mUserName != ''">
-                and c.name like concat('%',#{mUserName},'%')
+            <if test="mUserId != null and mUserId != ''">
+                and c.id = #{mUserId}
             </if>
         </where>
         <choose>
@@ -95,6 +98,19 @@
                 ORDER BY a.update_date DESC
             </otherwise>
         </choose>
+    </select>
+
+    <select id="getMUserNames" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT
+          mu.`name`
+        FROM met_record mr,
+        met_record_user mru,
+        met_user mu
+        <where>
+            mr.id = mru.record_id
+            AND mu.id = mru.muser_id
+            AND mr.id = #{0}
+        </where>
     </select>
 
     <insert id="insert">

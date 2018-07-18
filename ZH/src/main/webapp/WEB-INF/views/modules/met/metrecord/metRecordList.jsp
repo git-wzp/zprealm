@@ -32,7 +32,7 @@
         </li>
         <li><label>会议类型()：</label>
             <form:select path="type">
-                <%--<form:input path="type" htmlEscape="false" maxlength="255" class="input-medium"/>--%>
+                <form:option value="">全部类型</form:option>
                 <form:options items="${fns:getDictList('metType')}" itemLabel="label" itemValue="value" htmlEscape="false" />
             </form:select>
         </li>
@@ -40,7 +40,10 @@
             <form:input path="content" htmlEscape="false" maxlength="255" class="input-medium"/>
         </li>
         <li><label>参会人员：</label>
-            <form:input path="mUserName" htmlEscape="false" maxlength="255" class="input-medium"/>
+            <form:select path="mUserId" cssStyle="width: 80px">
+                <form:option value="">--全部--</form:option>
+                <form:options  items="${userList}" itemLabel="name" itemValue="id" htmlEscape="false"></form:options>
+            </form:select>
         </li>
     </ul>
     <ul class="ul-form">

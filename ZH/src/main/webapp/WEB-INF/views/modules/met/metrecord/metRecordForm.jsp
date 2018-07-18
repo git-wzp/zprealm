@@ -1,14 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
+<%@ include file="/WEB-INF/views/include/head.jsp"%>
 <html>
 <head>
-
 	<title>会议记录信息管理</title>
 	<meta name="decorator" content="default"/>
-
 	<script type="text/javascript">
 		$(document).ready(function() {
-			//$("#name").focus();
+		    $("#aaa").multipleSelect();
 			$("#inputForm").validate({
 				submitHandler: function(form){
 					loading('正在提交，请稍等...');
@@ -25,7 +24,19 @@
 				}
 			});
 		});
+        // function userChange() {
+        //     var ids = $("#mUserId").val();
+        //     $("#mUserId")
+        //     alert(ids);
+        // }
 	</script>
+    <style>
+        .select2-container, .select2-drop, .select2-search, .select2-search input{
+            width: 100px;
+        }
+
+
+    </style>
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -36,22 +47,21 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">会议标题：</label>
+			<label class="control-label">会议标题：<span style="color: red">*</span> </label>
 			<div class="controls">
 				<form:input path="title" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">会议类型：</label>
+			<label class="control-label">会议类型：<span style="color: red">*</span></label>
 			<div class="controls">
-				<form:select path="type">
-					<%--<form:input path="type" htmlEscape="false" maxlength="255" class="input-medium"/>--%>
+				<form:select path="type" cssStyle="width:120px">
 					<form:options items="${fns:getDictList('metType')}" itemLabel="label" itemValue="value" htmlEscape="false" />
 				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">会议内容：</label>
+			<label class="control-label">会议内容：<span style="color: red">*</span></label>
 			<div class="controls">
 				<form:textarea path="content"  rows="10" maxlength="255" class="input-xxlarge " />
 			</div>
@@ -63,7 +73,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">凭单填写日期：</label>
+			<label class="control-label">凭单填写日期：<span style="color: red">*</span></label>
 			<div class="controls">
 				<input name="voucherWritedate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${metRecord.voucherWritedate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -71,7 +81,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">凭单提交日期：</label>
+			<label class="control-label">凭单提交日期：<span style="color: red">*</span></label>
 			<div class="controls">
 				<input name="voucherCommitdate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate "
 					value="<fmt:formatDate value="${metRecord.voucherCommitdate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
@@ -79,42 +89,16 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">参与专家：</label>
-			<div class="controls">
-				<form:select path="mUserId">
-					<%--<form:input path="type" htmlEscape="false" maxlength="255" class="input-medium"/>--%>
-					<form:options items="${mUserList}" itemLabel="name" itemValue="id" htmlEscape="false" />
-				</form:select>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">参与专家2：</label>
-				<div class="col-sm-4">
-					<select id="mUserId" class="selectpicker show-tick form-control" multiple data-live-search="false">
-							<%--<form:input path="type" htmlEscape="false" maxlength="255" class="input-medium"/>--%>
-							<%--<form:options items="${mUserList}" itemLabel="name" itemValue="id" htmlEscape="false" />--%>
-						<option value="1">11</option>
-					</select>
+                <label class="control-label">当前参会人员：</label>
+            <div class="controls">
+            <input disabled="disabled" value="${mUserNames}">
+            </div>
+			<label class="control-label">修改参与专家：</label>
+				<div class="controls">
+                    <form:select path="mUserId" multiple="multiple" onchange="userChange()">
+                        <form:options items="${mUserList}" itemLabel="name" itemValue="id" htmlEscape="false" />
+                    </form:select>
 				</div>
-
-
-		</div>
-		<div class="form-group">
-			<label class="col-sm-3 control-label">客资类型：</label>
-			<div class="col-sm-4">
-				<select id="usertype" name="usertype" class="selectpicker show-tick form-control" multiple data-live-search="false">
-					<option value="0">苹果</option>
-					<option value="1">菠萝</option>
-					<option value="2">香蕉</option>
-					<option value="3">火龙果</option>
-					<option value="4">梨子</option>
-					<option value="5">草莓</option>
-					<option value="6">哈密瓜</option>
-					<option value="7">椰子</option>
-					<option value="8">猕猴桃</option>
-					<option value="9">桃子</option>
-				</select>
-			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
