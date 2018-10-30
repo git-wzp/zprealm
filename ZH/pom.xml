@@ -645,6 +645,13 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.29</version>
         </dependency>
+		<!--lombok插件 用于简化代码 @data@geter@seter@cleanUp@nonNull 需要配合插件使用
+		  使用详解：https://blog.csdn.net/u010695794/article/details/70441432		  wzp-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.12</version>
+		</dependency>
         <!--<dependency>-->
             <!--<groupId>net.sf.json-lib</groupId>-->
             <!--<artifactId>json-lib</artifactId>-->
