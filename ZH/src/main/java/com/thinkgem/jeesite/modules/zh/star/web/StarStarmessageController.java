@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.thinkgem.jeesite.modules.zh.web.star;
+package com.thinkgem.jeesite.modules.zh.star.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,16 +19,16 @@ import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.zh.entity.star.StarStarmessage;
-import com.thinkgem.jeesite.modules.zh.service.star.StarStarmessageService;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
+import com.thinkgem.jeesite.modules.zh.star.service.StarStarmessageService;
 
 /**
  * 明星资料Controller
  * @author 王子鹏
- * @version 2018-10-29
+ * @version 2018-10-31
  */
 @Controller
-@RequestMapping(value = "${adminPath}/zh/star/starStarmessage")
+@RequestMapping(value = "${adminPath}/star/starStarmessage")
 public class StarStarmessageController extends BaseController {
 
 	@Autowired
@@ -46,22 +46,22 @@ public class StarStarmessageController extends BaseController {
 		return entity;
 	}
 	
-	@RequiresPermissions("zh:star:starStarmessage:view")
+	@RequiresPermissions("star:starStarmessage:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(StarStarmessage starStarmessage, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<StarStarmessage> page = starStarmessageService.findPage(new Page<StarStarmessage>(request, response), starStarmessage); 
 		model.addAttribute("page", page);
-		return "modules/zh/star/starStarmessageList";
+		return "zh/star/starStarmessageList";
 	}
 
-	@RequiresPermissions("zh:star:starStarmessage:view")
+	@RequiresPermissions("star:starStarmessage:view")
 	@RequestMapping(value = "form")
 	public String form(StarStarmessage starStarmessage, Model model) {
 		model.addAttribute("starStarmessage", starStarmessage);
-		return "modules/zh/star/starStarmessageForm";
+		return "zh/star/starStarmessageForm";
 	}
 
-	@RequiresPermissions("zh:star:starStarmessage:edit")
+	@RequiresPermissions("star:starStarmessage:edit")
 	@RequestMapping(value = "save")
 	public String save(StarStarmessage starStarmessage, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, starStarmessage)){
@@ -69,15 +69,15 @@ public class StarStarmessageController extends BaseController {
 		}
 		starStarmessageService.save(starStarmessage);
 		addMessage(redirectAttributes, "保存star资料成功");
-		return "redirect:"+Global.getAdminPath()+"/zh/star/starStarmessage/?repage";
+		return "redirect:"+Global.getAdminPath()+"/star/starStarmessage/?repage";
 	}
 	
-	@RequiresPermissions("zh:star:starStarmessage:edit")
+	@RequiresPermissions("star:starStarmessage:edit")
 	@RequestMapping(value = "delete")
 	public String delete(StarStarmessage starStarmessage, RedirectAttributes redirectAttributes) {
 		starStarmessageService.delete(starStarmessage);
 		addMessage(redirectAttributes, "删除star资料成功");
-		return "redirect:"+Global.getAdminPath()+"/zh/star/starStarmessage/?repage";
+		return "redirect:"+Global.getAdminPath()+"/star/starStarmessage/?repage";
 	}
 
 }

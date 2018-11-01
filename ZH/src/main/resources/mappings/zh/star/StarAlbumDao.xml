@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.thinkgem.jeesite.modules.zh.dao.star.StarStarmessageDao">
+<mapper namespace="com.thinkgem.jeesite.modules.zh.star.dao.StarAlbumDao">
     
-	<sql id="starStarmessageColumns">
+	<sql id="starAlbumColumns">
 		a.id AS "id",
+		a.user_id AS "user.id",
 		a.name AS "name",
-		a.nation AS "nation",
-		a.sex AS "sex",
-		a.birth AS "birth",
-		a.about AS "about",
-		a.photo_url AS "photoUrl",
-		a.profession AS "profession",
-		a.school AS "school",
-		a.experience AS "experience",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		u2.name AS "user.name"
 	</sql>
 	
-	<sql id="starStarmessageJoins">
+	<sql id="starAlbumJoins">
+		LEFT JOIN sys_user u2 ON u2.id = a.user_id
 	</sql>
     
-	<select id="get" resultType="StarStarmessage">
+	<select id="get" resultType="StarAlbum">
 		SELECT 
-			<include refid="starStarmessageColumns"/>
-		FROM star_starmessage a
-		<include refid="starStarmessageJoins"/>
+			<include refid="starAlbumColumns"/>
+		FROM star_album a
+		<include refid="starAlbumJoins"/>
 		WHERE a.id = #{id}
 	</select>
 	
-	<select id="findList" resultType="StarStarmessage">
+	<select id="findList" resultType="StarAlbum">
 		SELECT 
-			<include refid="starStarmessageColumns"/>
-		FROM star_starmessage a
-		<include refid="starStarmessageJoins"/>
+			<include refid="starAlbumColumns"/>
+		FROM star_album a
+		<include refid="starAlbumJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="user != null and user.id != null and user.id != ''">
+				AND a.user_id = #{user.id}
+			</if>
 			<if test="name != null and name != ''">
 				AND a.name LIKE 
 					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
@@ -56,11 +54,11 @@
 		</choose>
 	</select>
 	
-	<select id="findAllList" resultType="StarStarmessage">
+	<select id="findAllList" resultType="StarAlbum">
 		SELECT 
-			<include refid="starStarmessageColumns"/>
-		FROM star_starmessage a
-		<include refid="starStarmessageJoins"/>
+			<include refid="starAlbumColumns"/>
+		FROM star_album a
+		<include refid="starAlbumJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
@@ -75,17 +73,10 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO star_starmessage(
+		INSERT INTO star_album(
 			id,
+			user_id,
 			name,
-			nation,
-			sex,
-			birth,
-			about,
-			photo_url,
-			profession,
-			school,
-			experience,
 			create_by,
 			create_date,
 			update_by,
@@ -94,15 +85,8 @@
 			del_flag
 		) VALUES (
 			#{id},
+			#{user.id},
 			#{name},
-			#{nation},
-			#{sex},
-			#{birth},
-			#{about},
-			#{photoUrl},
-			#{profession},
-			#{school},
-			#{experience},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -113,16 +97,9 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE star_starmessage SET 	
+		UPDATE star_album SET 	
+			user_id = #{user.id},
 			name = #{name},
-			nation = #{nation},
-			sex = #{sex},
-			birth = #{birth},
-			about = #{about},
-			photo_url = #{photoUrl},
-			profession = #{profession},
-			school = #{school},
-			experience = #{experience},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks}
@@ -130,7 +107,7 @@
 	</update>
 	
 	<update id="delete">
-		UPDATE star_starmessage SET 
+		UPDATE star_album SET 
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>

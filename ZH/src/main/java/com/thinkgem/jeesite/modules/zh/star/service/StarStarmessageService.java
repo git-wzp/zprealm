@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.thinkgem.jeesite.modules.zh.service.star;
+package com.thinkgem.jeesite.modules.zh.star.service;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.modules.zh.entity.star.StarStarmessage;
-import com.thinkgem.jeesite.modules.zh.dao.star.StarStarmessageDao;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
+import com.thinkgem.jeesite.modules.zh.star.dao.StarStarmessageDao;
 
 /**
  * 明星资料Service
  * @author 王子鹏
- * @version 2018-10-29
+ * @version 2018-10-31
  */
 @Service
 @Transactional(readOnly = true)
