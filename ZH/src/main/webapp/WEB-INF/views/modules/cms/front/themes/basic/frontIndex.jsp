@@ -35,8 +35,6 @@
 </head>
 <!-- //Head -->
 
-
-
 <!-- Body -->
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 

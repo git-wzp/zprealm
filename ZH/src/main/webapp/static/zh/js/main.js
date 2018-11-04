@@ -1,6 +1,5 @@
 if(/(iphone|ipad|android|ipod)/.test(navigator.userAgent.toLowerCase())){
-	location.href='/mobile/';
-	//return ;
+
 }
 /**
  * @author star
