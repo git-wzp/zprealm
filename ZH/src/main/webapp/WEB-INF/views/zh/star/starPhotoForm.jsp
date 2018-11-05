@@ -41,10 +41,10 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">路径：</label>
+			<label class="control-labelfavicon.ico">路径：</label>
 			<div class="controls">
 				<form:hidden id="url" path="url" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-				<sys:ckfinder input="url" type="files" uploadPath="/star/starPhoto" selectMultiple="false"/>
+				<sys:ckfinder input="url" type="images" uploadPath="/star/starPhoto" selectMultiple="false"/>
 			</div>
 		</div>
 		<div class="control-group">

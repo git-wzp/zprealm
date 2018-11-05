@@ -66,7 +66,7 @@
 		<div class="w3slideraits">
 			<div class="camera_wrap w3layouts agileits camera_magenta_skin" id="camera_wrap_2">
 				<c:forEach items="${bgPhoto}" var="bg">
-					<div data-src="${bg.url}" class="w3layouts agileits">
+					<div data-src="${uploadfile}${bg.url}" class="w3layouts agileits">
 						<div class="camera_caption w3layouts agileits fadeFromBottom">
 							<h3 class="w3layouts agileits">${bg.title}</h3>
 						</div>
