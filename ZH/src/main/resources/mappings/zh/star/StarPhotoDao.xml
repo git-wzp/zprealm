@@ -6,6 +6,7 @@
 		a.id AS "id",
 		a.star_id AS "starId",
 		a.url AS "url",
+		a.type AS "type",
 		a.title AS "title",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
@@ -36,20 +37,14 @@
 			<if test="starId != null and starId != ''">
 				AND a.star_id = #{starId}
 			</if>
+			<if test="type != null and type != ''">
+				AND a.type = #{type}
+			</if>
 			<if test="title != null and title != ''">
 				AND a.title LIKE 
 					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
 					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
-			</if>
-			<if test="createBy != null and createBy.id != null and createBy.id != ''">
-				AND a.create_by = #{createBy.id}
-			</if>
-			<if test="createDate != null and createDate != ''">
-				AND a.create_date = #{createDate}
-			</if>
-			<if test="delFlag != null and delFlag != ''">
-				AND a.del_flag = #{delFlag}
 			</if>
 		</where>
 		<choose>
@@ -85,6 +80,7 @@
 			id,
 			star_id,
 			url,
+			type,
 			title,
 			create_by,
 			create_date,
@@ -96,6 +92,7 @@
 			#{id},
 			#{starId},
 			#{url},
+			#{type},
 			#{title},
 			#{createBy.id},
 			#{createDate},
@@ -110,6 +107,7 @@
 		UPDATE star_photo SET 	
 			star_id = #{starId},
 			url = #{url},
+			type = #{type},
 			title = #{title},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},

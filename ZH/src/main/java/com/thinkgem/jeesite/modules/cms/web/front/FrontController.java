@@ -21,6 +21,8 @@ import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +58,8 @@ public class FrontController extends BaseController{
 	private CategoryService categoryService;
 	@Autowired
 	private SiteService siteService;
-	
+	@Autowired
+	private StarPhotoService starPhotoService;
 	/**
 	 * 网站首页
 	 */
@@ -65,6 +68,13 @@ public class FrontController extends BaseController{
 		Site site = CmsUtils.getSite(Site.defaultSiteId());
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
+
+//		TODO：前台首页需要的图片 选取人气最高的5位明星 各一张背景图片
+//		暂时使用5张图
+		StarPhoto starPhoto = new StarPhoto();
+		starPhoto.setType("1");
+		List<StarPhoto> bgPhoto = starPhotoService.findList(starPhoto);
+		model.addAttribute("bgPhoto", bgPhoto);
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
 	}
 

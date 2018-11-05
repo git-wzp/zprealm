@@ -3,9 +3,14 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
+import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
+import com.thinkgem.jeesite.modules.zh.star.service.StarStarmessageService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,17 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
-import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * star照片Controller
  * @author 王子鹏
- * @version 2018-10-31
+ * @version 2018-11-05
  */
 @Controller
 @RequestMapping(value = "${adminPath}/star/starPhoto")
@@ -33,6 +35,8 @@ public class StarPhotoController extends BaseController {
 
 	@Autowired
 	private StarPhotoService starPhotoService;
+	@Autowired
+	private StarStarmessageService starStarmessageService;
 	
 	@ModelAttribute
 	public StarPhoto get(@RequestParam(required=false) String id) {
@@ -57,7 +61,11 @@ public class StarPhotoController extends BaseController {
 	@RequiresPermissions("star:starPhoto:view")
 	@RequestMapping(value = "form")
 	public String form(StarPhoto starPhoto, Model model) {
+		List<StarStarmessage> starMessageList = starStarmessageService.findList(new StarStarmessage());
+
 		model.addAttribute("starPhoto", starPhoto);
+		model.addAttribute("starMessageList", starMessageList);
+
 		return "zh/star/starPhotoForm";
 	}
 
@@ -79,5 +87,7 @@ public class StarPhotoController extends BaseController {
 		addMessage(redirectAttributes, "删除star照片成功");
 		return "redirect:"+Global.getAdminPath()+"/star/starPhoto/?repage";
 	}
+
+
 
 }

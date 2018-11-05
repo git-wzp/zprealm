@@ -65,35 +65,16 @@
 		<!-- Slider -->
 		<div class="w3slideraits">
 			<div class="camera_wrap w3layouts agileits camera_magenta_skin" id="camera_wrap_2">
-				<div data-src="${ctxStatic}/zh/images/slide-1.jpg" class="w3layouts agileits">
-					<div class="camera_caption w3layouts agileits fadeFromBottom">
-						<h3 class="w3layouts agileits">Hello, I am Rachel Weisz.</h3>
+				<c:forEach items="${bgPhoto}" var="bg">
+					<div data-src="${bg.url}" class="w3layouts agileits">
+						<div class="camera_caption w3layouts agileits fadeFromBottom">
+							<h3 class="w3layouts agileits">${bg.title}</h3>
+						</div>
 					</div>
-				</div>
-				<div class="w3layouts agileits" data-src="${ctxStatic}/zh/images/slide-2.jpg">
-					<div class="camera_caption w3layouts agileits fadeFromBottom">
-						<h3 class="w3layouts agileits">I am a Photographer</h3>
-					</div>
-				</div>
-				<div data-src="${ctxStatic}/zh/images/slide-3.jpg" class="w3layouts agileits">
-					<div class="camera_caption w3layouts agileits fadeFromBottom">
-						<h3 class="w3layouts agileits">I Photograph Models and Nature</h3>
-					</div>
-				</div>
-				<div class="w3layouts agileits" data-src="${ctxStatic}/zh/images/slide-4.jpg">
-					<div class="camera_caption w3layouts agileits fadeFromBottom">
-						<h3 class="w3layouts agileits">I Love Photography</h3>
-					</div>
-				</div>
-				<div data-src="${ctxStatic}/zh/images/slide-5.jpg" class="w3layouts agileits">
-					<div class="camera_caption w3layouts agileits fadeFromBottom">
-						<h3 class="w3layouts agileits">Check Out My <a class="scroll" href="#portfolio">Portfolio</a> Below</h3>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 		<!-- //Slider -->
-
 	</div>
 	<!-- //Header -->
 

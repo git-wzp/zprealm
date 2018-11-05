@@ -3,20 +3,19 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.service;
 
-import java.util.List;
-
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.modules.zh.star.dao.StarPhotoDao;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
-import com.thinkgem.jeesite.modules.zh.star.dao.StarPhotoDao;
+import java.util.List;
 
 /**
  * star照片Service
  * @author 王子鹏
- * @version 2018-10-31
+ * @version 2018-11-05
  */
 @Service
 @Transactional(readOnly = true)

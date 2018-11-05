@@ -28,19 +28,14 @@
 			<li><label>明星id：</label>
 				<form:input path="starId" htmlEscape="false" maxlength="32" class="input-medium"/>
 			</li>
+			<li><label>图片类型：</label>
+				<form:select path="type" class="input-medium">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('star_photo_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
+			</li>
 			<li><label>标题：</label>
 				<form:input path="title" htmlEscape="false" maxlength="255" class="input-medium"/>
-			</li>
-			<li><label>创建者：</label>
-				<form:input path="createBy.id" htmlEscape="false" maxlength="64" class="input-medium"/>
-			</li>
-			<li><label>创建时间：</label>
-				<input name="createDate" type="text" readonly="readonly" maxlength="20" class="input-medium Wdate"
-					value="<fmt:formatDate value="${starPhoto.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/>"
-					onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',isShowClear:false});"/>
-			</li>
-			<li><label>删除标记：</label>
-				<form:radiobuttons path="delFlag" items="${fns:getDictList('del_flag')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -50,6 +45,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
+				<th>图片类型</th>
 				<th>标题</th>
 				<th>更新时间</th>
 				<th>备注信息</th>
@@ -60,8 +56,11 @@
 		<c:forEach items="${page.list}" var="starPhoto">
 			<tr>
 				<td><a href="${ctx}/star/starPhoto/form?id=${starPhoto.id}">
-					${starPhoto.title}
+					${fns:getDictLabel(starPhoto.type, 'star_photo_type', '')}
 				</a></td>
+				<td>
+					${starPhoto.title}
+				</td>
 				<td>
 					<fmt:formatDate value="${starPhoto.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

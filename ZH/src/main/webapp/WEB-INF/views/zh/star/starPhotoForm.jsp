@@ -36,13 +36,24 @@
 		<div class="control-group">
 			<label class="control-label">明星id：</label>
 			<div class="controls">
-				<form:input path="starId" htmlEscape="false" maxlength="32" class="input-xlarge "/>
+				<sys:treeselect id="starMessage" name="starId" value="${starMessage.id}" labelName="user.name" labelValue="${starMessage.name}"
+								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">路径：</label>
 			<div class="controls">
-				<form:input path="url" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:hidden id="url" path="url" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="url" type="files" uploadPath="/star/starPhoto" selectMultiple="false"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">图片类型：</label>
+			<div class="controls">
+				<form:select path="type" class="input-xlarge ">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('star_photo_type')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">

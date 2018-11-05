@@ -10,7 +10,7 @@ import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
 /**
  * star照片DAO接口
  * @author 王子鹏
- * @version 2018-10-31
+ * @version 2018-11-05
  */
 @MyBatisDao
 public interface StarPhotoDao extends CrudDao<StarPhoto> {
