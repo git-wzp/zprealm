@@ -139,66 +139,18 @@
 
 			<h2>为你代"颜"</h2>
 			<div class="grid cs-style-3">
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj01.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>FASHION</h3>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid2">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj02.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>NATURE</h3>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid3">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj03.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>WEDDING</h3>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid4">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj04.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>TILT SHIFT</h3>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid5">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj05.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>MONOCHROME</h3>
-						</figcaption>
-					</figure>
-				</div>
-				<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid6">
-					<figure>
-						<div class="w3threespecialityw3ls-info">
-							<img src="${ctxStatic}/zh/images/bgzj06.jpg" alt="Couture">
-						</div>
-						<figcaption>
-							<h3>DOUBLE EXPOSURE</h3>
-						</figcaption>
-					</figure>
-				</div>
+				<c:forEach items="${photoList}" var="p">
+					<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 320px">
+						<figure>
+							<div class="w3threespecialityw3ls-info">
+								<img src="${uploadfile}${p.url}" alt="Couture">
+							</div>
+							<figcaption>
+								<h3>${p.title}</h3>
+							</figcaption>
+						</figure>
+					</div>
+				</c:forEach>
 				<div class="clearfix"></div>
 			</div>
 			<div class="clearfix"></div>

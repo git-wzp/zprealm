@@ -65,7 +65,7 @@
 		<div class="control-group">
 			<label class="control-label">简介：</label>
 			<div class="controls">
-				<form:input path="about" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:textarea path="about" htmlEscape="false" rows="8" maxlength="2555" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">

@@ -3,11 +3,11 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * 明星资料Entity
@@ -71,7 +71,7 @@ public class StarStarmessage extends DataEntity<StarStarmessage> {
 		this.birth = birth;
 	}
 	
-	@Length(min=0, max=255, message="简介长度必须介于 0 和 255 之间")
+	@Length(min=0, max=2555, message="简介长度必须介于 0 和 2555 之间")
 	public String getAbout() {
 		return about;
 	}

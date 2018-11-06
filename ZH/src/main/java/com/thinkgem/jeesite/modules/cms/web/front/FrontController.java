@@ -75,6 +75,12 @@ public class FrontController extends BaseController{
 		starPhoto.setType("1");
 		List<StarPhoto> bgPhoto = starPhotoService.findList(starPhoto);
 		model.addAttribute("bgPhoto", bgPhoto);
+
+//		为你代颜 图片
+		starPhoto.setType("3");
+		List<StarPhoto> photoList = starPhotoService.findList(starPhoto);
+		model.addAttribute("photoList", photoList);
+
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
 	}
 

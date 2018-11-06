@@ -13,13 +13,22 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
  * @version 2018-11-05
  */
 public class StarPhoto extends DataEntity<StarPhoto> {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String starId;		// 明星id
 	private String url;		// 路径
 	private String type;		// 图片类型
 	private String title;		// 标题
-	
+
+    public String getStarName() {
+        return starName;
+    }
+
+    public void setStarName(String starName) {
+        this.starName = starName;
+    }
+
+    private String starName;  //明星name 表里没有该字段
 	public StarPhoto() {
 		super();
 	}
@@ -36,7 +45,7 @@ public class StarPhoto extends DataEntity<StarPhoto> {
 	public void setStarId(String starId) {
 		this.starId = starId;
 	}
-	
+
 	@Length(min=0, max=255, message="路径长度必须介于 0 和 255 之间")
 	public String getUrl() {
 		return url;
@@ -45,7 +54,7 @@ public class StarPhoto extends DataEntity<StarPhoto> {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	@Length(min=0, max=255, message="图片类型长度必须介于 0 和 255 之间")
 	public String getType() {
 		return type;
@@ -54,7 +63,7 @@ public class StarPhoto extends DataEntity<StarPhoto> {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	@Length(min=0, max=255, message="标题长度必须介于 0 和 255 之间")
 	public String getTitle() {
 		return title;
@@ -63,5 +72,5 @@ public class StarPhoto extends DataEntity<StarPhoto> {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 }

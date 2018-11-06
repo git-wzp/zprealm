@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * star照片Controller
@@ -61,10 +60,11 @@ public class StarPhotoController extends BaseController {
 	@RequiresPermissions("star:starPhoto:view")
 	@RequestMapping(value = "form")
 	public String form(StarPhoto starPhoto, Model model) {
-		List<StarStarmessage> starMessageList = starStarmessageService.findList(new StarStarmessage());
-
+		if(starPhoto.getId()!=null){
+			StarStarmessage starStarmessage = starStarmessageService.get(starPhoto.getStarId());
+			starPhoto.setStarName(starStarmessage.getName());
+		}
 		model.addAttribute("starPhoto", starPhoto);
-		model.addAttribute("starMessageList", starMessageList);
 
 		return "zh/star/starPhotoForm";
 	}
