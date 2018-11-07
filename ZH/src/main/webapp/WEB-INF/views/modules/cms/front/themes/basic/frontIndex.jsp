@@ -31,7 +31,16 @@
 <!-- Supportive-JavaScript -->
 <script src="${ctxStatic}/zh/js/modernizr.js"></script>
 <!-- //Supportive-JavaScript -->
-
+	<style>
+		.w3threespecialityw3ls-info {
+			width: 380px;
+			height: 285px;
+		}
+		.w3threespecialityw3ls-info img {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
 </head>
 <!-- //Head -->
 
@@ -140,7 +149,7 @@
 			<h2>为你代"颜"</h2>
 			<div class="grid cs-style-3">
 				<c:forEach items="${photoList}" var="p">
-					<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 320px">
+					<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
 						<figure>
 							<div class="w3threespecialityw3ls-info">
 								<img src="${uploadfile}${p.url}" alt="Couture">
