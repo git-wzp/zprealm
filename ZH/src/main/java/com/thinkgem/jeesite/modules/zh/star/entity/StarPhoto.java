@@ -20,15 +20,7 @@ public class StarPhoto extends DataEntity<StarPhoto> {
 	private String type;		// 图片类型
 	private String title;		// 标题
 
-    public String getStarName() {
-        return starName;
-    }
 
-    public void setStarName(String starName) {
-        this.starName = starName;
-    }
-
-    private String starName;  //明星name 表里没有该字段
 	public StarPhoto() {
 		super();
 	}

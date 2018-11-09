@@ -100,17 +100,4 @@ public class StarStarmessageController extends BaseController {
 		return mapList;
 	}
 
-	/**
-	 * 根据id返回star姓名 明星人员选择使用
-	 * <sys:treeselect id="starMessage" name="starId" value="${starPhoto.starId}" labelName="starPhoto.starId" labelValue="${starPhoto.starName}"
-	 * title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
-	 * @param id
-	 */
-	public String getStarName(String id) {
-		StarStarmessage starStarmessage = starStarmessageService.get(id);
-		return starStarmessage.getName();
-	}
-
-
-
 }

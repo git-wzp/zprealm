@@ -72,7 +72,7 @@
 			<label class="control-label">照片：</label>
 			<div class="controls">
 				<form:hidden id="photoUrl" path="photoUrl" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-				<sys:ckfinder input="photoUrl" type="files" uploadPath="/star/starStarmessage" selectMultiple="true"/>
+				<sys:ckfinder input="photoUrl" type="images" uploadPath="/star/starStarmessage" selectMultiple="false"/>
 			</div>
 		</div>
 		<div class="control-group">

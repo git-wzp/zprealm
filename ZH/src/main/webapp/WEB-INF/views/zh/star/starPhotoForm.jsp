@@ -36,7 +36,7 @@
 		<div class="control-group">
 			<label class="control-label">明星id：</label>
 			<div class="controls">
-				<sys:treeselect id="starMessage" name="starId" value="${starPhoto.starId}" labelName="starPhoto.starId" labelValue="${starPhoto.starName}"
+				<sys:treeselect id="starMessage" name="starId" value="${starPhoto.starId}" labelName="starPhoto.starId" labelValue="${fnz:getStarName(starPhoto.starId)}"
 								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
 			</div>
 		</div>

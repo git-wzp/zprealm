@@ -46,6 +46,39 @@
 				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
+		<script>
+			$("#starMessage").adda
+		</script>
+		<div class="control-group">
+			<label class="control-label">所属star：</label>
+			<div class="controls">
+				<sys:treeselect id="starMessage" name="starIds" value="${starAlbum.starIds}" labelName="starName" labelValue="${fnz:getStarName(starAlbum.starIds)}"
+								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label">相册封面：</label>
+			<div class="controls">
+				<form:hidden id="url" path="url" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="url" type="images" uploadPath="/star/starPhoto" selectMultiple="false"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">图片</label>
+			<div class="controls">
+
+				<form:hidden id="photoUrls" path="photoUrls" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="photoUrls" type="images" uploadPath="/star/starPhoto" selectMultiple="true"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">是否公开：</label>
+			<div class="controls">
+				<form:radiobuttons  path="isShow" items="${fns:getDictList('star_album_isshow')}" itemLabel="label" itemValue="value" htmlEscape="false" class="required"/>
+			</div>
+		</div>
+
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">

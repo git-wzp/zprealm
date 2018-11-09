@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zh.star.dao.StarPhotoAlbumDao">
+    
+	<sql id="starPhotoAlbumColumns">
+		a.id AS "id",
+		a.photo_id AS "photoId",
+		a.album_id AS "albumId",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="starPhotoAlbumJoins">
+	</sql>
+    
+	<select id="get" resultType="StarPhotoAlbum">
+		SELECT 
+			<include refid="starPhotoAlbumColumns"/>
+		FROM star_photo_album a
+		<include refid="starPhotoAlbumJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="StarPhotoAlbum">
+		SELECT 
+			<include refid="starPhotoAlbumColumns"/>
+		FROM star_photo_album a
+		<include refid="starPhotoAlbumJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="photoId != null and photoId != ''">
+				AND a.photo_id = #{photoId}
+			</if>
+			<if test="albumId != null and albumId != ''">
+				AND a.album_id = #{albumId}
+			</if>
+		</where>
+
+	</select>
+	
+	<select id="findAllList" resultType="StarPhotoAlbum">
+		SELECT 
+			<include refid="starPhotoAlbumColumns"/>
+		FROM star_photo_album a
+		<include refid="starPhotoAlbumJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	<!--已经做成了在相册部分添加照片的一个方法 可能不支持前台添加别人照片到自己的相册-->
+	<insert id="insert"  useGeneratedKeys="true"  keyProperty="id" keyColumn="id">
+
+		INSERT INTO star_photo_album(
+		id,
+		photo_id,
+		album_id,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks,
+		del_flag
+		) VALUES
+		/*这里应该加判断  判断提供的是urllist  还是直接的photoid  对方可能是前台用户 直接添加前台选择的别人添加好的照片到自己的相册里来
+		<!--<if test="photoid != null "></if>-->
+		*/
+		<foreach  collection="photoUrls" item="url"  index ="index" separator=",">
+			(
+			(SELECT  replace(uuid(),'-','')),
+			(SELECT p.id from star_photo p where p.del_flag = '0' and p.url = #{url} limit 1 ),
+			#{entity.albumId},
+			#{entity.createBy.id},
+			#{entity.createDate},
+			#{entity.updateBy.id},
+			#{entity.updateDate},
+			#{entity.remarks},
+			#{entity.delFlag}
+			)
+		</foreach>
+
+	</insert>
+	<!--
+	<insert id="insert">
+		INSERT INTO star_photo_album(
+			id,
+			photo_id,
+			album_id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{photoId},
+			#{albumId},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>-->
+	
+	<update id="update">
+		UPDATE star_photo_album SET 	
+			photo_id = #{photoId},
+			album_id = #{albumId},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE star_photo_album SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

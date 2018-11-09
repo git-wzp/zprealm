@@ -5,19 +5,21 @@ package com.thinkgem.jeesite.modules.zh.star.dao;
 
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarAlbum;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarPhotoAlbum;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * 相册DAO接口
+ * 图片相册关联信息DAO接口
  * @author 王子鹏
- * @version 2018-11-06
+ * @version 2018-11-07
  */
 @MyBatisDao
-public interface StarAlbumDao extends CrudDao<StarAlbum> {
+public interface StarPhotoAlbumDao extends CrudDao<StarPhotoAlbum> {
 
-//    String getPhotoUrls(String id);
-    List getPhotoUrls(@Param("id") String id);
+    /**
+     * 通过url查询到photoID  写在一个sql里 提高效率
+     */
+    int insert(@Param("entity")StarPhotoAlbum entity,@Param("photoUrls") List urls);
 }

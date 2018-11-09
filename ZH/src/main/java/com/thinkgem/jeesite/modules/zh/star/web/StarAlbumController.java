@@ -3,9 +3,13 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarAlbum;
+import com.thinkgem.jeesite.modules.zh.star.service.StarAlbumService;
+import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,17 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarAlbum;
-import com.thinkgem.jeesite.modules.zh.star.service.StarAlbumService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 相册Controller
  * @author 王子鹏
- * @version 2018-10-31
+ * @version 2018-11-06
  */
 @Controller
 @RequestMapping(value = "${adminPath}/star/starAlbum")
@@ -33,6 +33,10 @@ public class StarAlbumController extends BaseController {
 
 	@Autowired
 	private StarAlbumService starAlbumService;
+
+	@Autowired
+	private StarPhotoService starPhotoService ;
+
 	
 	@ModelAttribute
 	public StarAlbum get(@RequestParam(required=false) String id) {
@@ -57,7 +61,10 @@ public class StarAlbumController extends BaseController {
 	@RequiresPermissions("star:starAlbum:view")
 	@RequestMapping(value = "form")
 	public String form(StarAlbum starAlbum, Model model) {
+
+//		String photoList = starAlbum.getPhotoUrls();
 		model.addAttribute("starAlbum", starAlbum);
+
 		return "zh/star/starAlbumForm";
 	}
 
@@ -67,7 +74,8 @@ public class StarAlbumController extends BaseController {
 		if (!beanValidator(model, starAlbum)){
 			return form(starAlbum, model);
 		}
-		starAlbumService.save(starAlbum);
+ 		starAlbumService.save(starAlbum);
+
 		addMessage(redirectAttributes, "保存相册成功");
 		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
 	}

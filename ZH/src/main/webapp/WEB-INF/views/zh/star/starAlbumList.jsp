@@ -32,6 +32,9 @@
 			<li><label>相册名称：</label>
 				<form:input path="name" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
+			<li><label>是否公开：</label>
+				<form:radiobuttons path="isShow" items="${fns:getDictList('star_album_isshow')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
 		</ul>
@@ -41,7 +44,9 @@
 		<thead>
 			<tr>
 				<th>相册名称</th>
+				<th>相册封面</th>
 				<th>更新时间</th>
+				<th>浏览次数</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="star:starAlbum:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -53,7 +58,13 @@
 					${starAlbum.name}
 				</a></td>
 				<td>
+					${starAlbum.url}
+				</td>
+				<td>
 					<fmt:formatDate value="${starAlbum.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					${starAlbum.showCount}
 				</td>
 				<td>
 					${starAlbum.remarks}

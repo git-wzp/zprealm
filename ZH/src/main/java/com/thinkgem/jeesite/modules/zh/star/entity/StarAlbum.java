@@ -3,22 +3,34 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.entity;
 
+import com.thinkgem.jeesite.common.persistence.DataEntity;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import org.hibernate.validator.constraints.Length;
-
-import com.thinkgem.jeesite.common.persistence.DataEntity;
 
 /**
  * 相册Entity
  * @author 王子鹏
- * @version 2018-10-31
+ * @version 2018-11-06
  */
 public class StarAlbum extends DataEntity<StarAlbum> {
 	
 	private static final long serialVersionUID = 1L;
 	private User user;		// 所属用户
 	private String name;		// 相册名称
-	
+	private String starIds;		// 所属star
+	private String url;		// 相册封面
+	private String isShow;		// 是否公开
+	private Integer showCount;		// 浏览次数
+	private String  photoUrls;
+
+	public String getPhotoUrls() {
+		return photoUrls;
+	}
+
+	public void setPhotoUrls(String photoUrls) {
+		this.photoUrls = photoUrls;
+	}
+
 	public StarAlbum() {
 		super();
 	}
@@ -42,6 +54,41 @@ public class StarAlbum extends DataEntity<StarAlbum> {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	@Length(min=0, max=255, message="所属star长度必须介于 0 和 255 之间")
+	public String getStarIds() {
+		return starIds;
+	}
+
+	public void setStarIds(String starIds) {
+		this.starIds = starIds;
+	}
+	
+	@Length(min=0, max=255, message="相册封面长度必须介于 0 和 255 之间")
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	@Length(min=0, max=1, message="是否公开长度必须介于 0 和 1 之间")
+	public String getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(String isShow) {
+		this.isShow = isShow;
+	}
+	
+	public Integer getShowCount() {
+		return showCount;
+	}
+
+	public void setShowCount(Integer showCount) {
+		this.showCount = showCount;
 	}
 	
 }

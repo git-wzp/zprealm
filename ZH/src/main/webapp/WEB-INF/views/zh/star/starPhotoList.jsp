@@ -45,9 +45,11 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>图片类型</th>
 				<th>标题</th>
+				<th>相关明星</th>
+				<th>图片类型</th>
 				<th>更新时间</th>
+				<th>缩略图</th>
 				<th>备注信息</th>
 				<shiro:hasPermission name="star:starPhoto:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -55,14 +57,21 @@
 		<tbody>
 		<c:forEach items="${page.list}" var="starPhoto">
 			<tr>
-				<td><a href="${ctx}/star/starPhoto/form?id=${starPhoto.id}">
-					${fns:getDictLabel(starPhoto.type, 'star_photo_type', '')}
-				</a></td>
 				<td>
 					${starPhoto.title}
 				</td>
 				<td>
+					<%--${starPhoto.starId}--%>
+					${fnz:getStarName(starPhoto.starId)}
+				</td>
+				<td>
+					${fns:getDictLabel(starPhoto.type, 'star_photo_type', '')}
+				 </td>
+				<td>
 					<fmt:formatDate value="${starPhoto.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+				</td>
+				<td>
+					<img   src="${uploadfile}${starPhoto.url}" style="width: 110px;height: 80px" >
 				</td>
 				<td>
 					${starPhoto.remarks}

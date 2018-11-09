@@ -8,7 +8,6 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.utils.StringUtils;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
 import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
 import com.thinkgem.jeesite.modules.zh.star.service.StarStarmessageService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -52,7 +51,9 @@ public class StarPhotoController extends BaseController {
 	@RequiresPermissions("star:starPhoto:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(StarPhoto starPhoto, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<StarPhoto> page = starPhotoService.findPage(new Page<StarPhoto>(request, response), starPhoto); 
+
+//		关联设置明星name
+		Page<StarPhoto> page = starPhotoService.findPage(new Page<StarPhoto>(request, response), starPhoto);
 		model.addAttribute("page", page);
 		return "zh/star/starPhotoList";
 	}
@@ -60,10 +61,6 @@ public class StarPhotoController extends BaseController {
 	@RequiresPermissions("star:starPhoto:view")
 	@RequestMapping(value = "form")
 	public String form(StarPhoto starPhoto, Model model) {
-		if(starPhoto.getId()!=null){
-			StarStarmessage starStarmessage = starStarmessageService.get(starPhoto.getStarId());
-			starPhoto.setStarName(starStarmessage.getName());
-		}
 		model.addAttribute("starPhoto", starPhoto);
 
 		return "zh/star/starPhotoForm";
