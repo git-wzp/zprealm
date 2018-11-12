@@ -38,7 +38,10 @@
 		}
 		.w3threespecialityw3ls-info img {
 			width: 100%;
-			height: 100%;
+			/*height: 100%;*/
+		}
+		.h3 {
+			font-size: 21px
 		}
 	</style>
 </head>
@@ -87,14 +90,13 @@
 	</div>
 	<!-- //Header -->
 
-
-
 	<!-- About -->
 	<div class="agileaboutaitsabout" id="agileaboutaitsabout">
 		<div class="agileaboutaits">
 			<div class="container">
 
 				<div class="col-md-6 col-sm-6 agileaboutaits-grid agileaboutaits-info">
+
 					<h1>关于 Ta</h1>
 					<P>张杰，1982年12月20日出生于四川成都，毕业于四川师范大学，内地流行男歌手，音乐厂牌“行星文化”创始人。2004年获我型我秀全国总冠军出道。2007年参加快乐男声；推出EP《最美的太阳》。2008年推出专辑《明天过后》；担任北京奥运会火炬手。2010年推出专辑《这，就是爱》；担任博鳌亚洲论坛表演嘉宾；获韩国MAMA颁奖礼亚洲之星奖。2012年在人民大会堂开启巡演；作品《风华正茂》获湖南省五个一 ... </P>
 					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">了解更多<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
@@ -105,7 +107,7 @@
 						<img src="${ctxStatic}/zh/images/zj02.jpg" alt="Couture">
 					</div>
 					<div class="agileaboutaits-image-2">
-						<img src="${ctxStatic}/zh/images/zj.jpg" alt="Couture">
+						<img src="${ctxStatic}/zh/images/zj.jpg"  alt="Couture">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -148,14 +150,14 @@
 
 			<h2>为你代"颜"</h2>
 			<div class="grid cs-style-3">
-				<c:forEach items="${photoList}" var="p">
+				<c:forEach items="${starAlbumlist}" var="p">
 					<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
 						<figure>
 							<div class="w3threespecialityw3ls-info">
 								<img src="${uploadfile}${p.url}" alt="Couture">
 							</div>
 							<figcaption>
-								<h3>${p.title}</h3>
+								<h3>${p.name}</h3>
 							</figcaption>
 						</figure>
 					</div>

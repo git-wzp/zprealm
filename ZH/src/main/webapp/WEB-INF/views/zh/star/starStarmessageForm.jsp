@@ -23,6 +23,8 @@
 				}
 			});
 		});
+
+
 	</script>
 </head>
 <body>
@@ -39,10 +41,13 @@
 				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
 			</div>
 		</div>
-		<div class="control-group">
+		 <div class="control-group">
 			<label class="control-label">民族：</label>
 			<div class="controls">
-				<form:input path="nation" htmlEscape="false" maxlength="25" class="input-xlarge "/>
+				<form:select path="nation" class="input-xlarge ">
+					<form:option value="" label=""/>
+					<form:options items="${fns:getDictList('sys_nation')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
@@ -90,7 +95,7 @@
 		<div class="control-group">
 			<label class="control-label">个人经历：</label>
 			<div class="controls">
-				<form:input path="experience" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:textarea path="experience" htmlEscape="false" rows="4" maxlength="2555" class="input-xxlarge " />
 			</div>
 		</div>
 		<div class="control-group">

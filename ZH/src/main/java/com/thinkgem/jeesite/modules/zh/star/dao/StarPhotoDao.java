@@ -6,6 +6,9 @@ package com.thinkgem.jeesite.modules.zh.star.dao;
 import com.thinkgem.jeesite.common.persistence.CrudDao;
 import com.thinkgem.jeesite.common.persistence.annotation.MyBatisDao;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * star照片DAO接口
@@ -14,5 +17,9 @@ import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
  */
 @MyBatisDao
 public interface StarPhotoDao extends CrudDao<StarPhoto> {
-	
+
+    /**
+     * 查询count个数的 背景图片
+     */
+    List<StarPhoto> findListBGPhoto(@Param("count") String count);
 }

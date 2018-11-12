@@ -15,7 +15,7 @@
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag"
 	</sql>
-	
+
 	<sql id="starPhotoJoins">
 	</sql>
     
@@ -26,7 +26,15 @@
 		<include refid="starPhotoJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+
+	<select id="findListBGPhoto" resultType="StarPhoto" parameterType="java.lang.String">
+		SELECT
+		<include refid="starPhotoColumns"/>
+		FROM star_photo a
+		WHERE a.del_flag = '0' and a.type = '1' AND  a.star_id  in
+		(SELECT t.id FROM (SELECT * FROM star_starmessage WHERE del_flag = '0'  ORDER BY create_date DESC LIMIT ${count}) as t)  GROUP BY a.star_id
+	</select>
+
 	<select id="findList" resultType="StarPhoto">
 		SELECT 
 			<include refid="starPhotoColumns"/>
@@ -56,7 +64,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+
 	<select id="findAllList" resultType="StarPhoto">
 		SELECT 
 			<include refid="starPhotoColumns"/>

@@ -107,7 +107,7 @@ public class StarStarmessage extends DataEntity<StarStarmessage> {
 		this.school = school;
 	}
 	
-	@Length(min=0, max=255, message="个人经历长度必须介于 0 和 255 之间")
+	@Length(min=0, max=2555, message="个人经历长度必须介于 0 和 2555 之间")
 	public String getExperience() {
 		return experience;
 	}
@@ -115,5 +115,4 @@ public class StarStarmessage extends DataEntity<StarStarmessage> {
 	public void setExperience(String experience) {
 		this.experience = experience;
 	}
-	
 }

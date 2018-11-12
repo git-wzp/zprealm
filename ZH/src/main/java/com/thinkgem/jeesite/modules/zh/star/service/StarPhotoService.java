@@ -42,5 +42,11 @@ public class StarPhotoService extends CrudService<StarPhotoDao, StarPhoto> {
 	public void delete(StarPhoto starPhoto) {
 		super.delete(starPhoto);
 	}
-	
+	/**
+	 * 查询count个数的 背景图片
+	 */
+    public List<StarPhoto> findListBGPhoto(String count) {
+
+		return dao.findListBGPhoto(count);
+	}
 }

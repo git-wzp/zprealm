@@ -52,7 +52,7 @@
 					${starStarmessage.name}
 				</a></td>
 				<td>
-					${starStarmessage.nation}
+					 ${fns:getDictLabel(starStarmessage.nation, 'sys_nation', '')}
 				</td>
 				<td>
 					${fns:getDictLabel(starStarmessage.sex, 'sex', '')}

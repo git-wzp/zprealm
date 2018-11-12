@@ -21,7 +21,9 @@ import com.thinkgem.jeesite.modules.cms.service.CommentService;
 import com.thinkgem.jeesite.modules.cms.service.LinkService;
 import com.thinkgem.jeesite.modules.cms.service.SiteService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarAlbum;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.service.StarAlbumService;
 import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,6 +62,8 @@ public class FrontController extends BaseController{
 	private SiteService siteService;
 	@Autowired
 	private StarPhotoService starPhotoService;
+	@Autowired
+	private StarAlbumService starAlbumService;
 	/**
 	 * 网站首页
 	 */
@@ -70,16 +74,14 @@ public class FrontController extends BaseController{
 		model.addAttribute("isIndex", true);
 
 //		TODO：前台首页需要的图片 选取人气最高的5位明星 各一张背景图片
-//		暂时使用5张图
-		StarPhoto starPhoto = new StarPhoto();
-		starPhoto.setType("1");
-		List<StarPhoto> bgPhoto = starPhotoService.findList(starPhoto);
+		List<StarPhoto> bgPhoto = starPhotoService.findListBGPhoto("5");
 		model.addAttribute("bgPhoto", bgPhoto);
 
-//		为你代颜 图片
-		starPhoto.setType("3");
-		List<StarPhoto> photoList = starPhotoService.findList(starPhoto);
-		model.addAttribute("photoList", photoList);
+//		为你代颜 相册
+		StarAlbum starAlbum = new StarAlbum();
+		List<StarAlbum> starAlbumlist = starAlbumService.findPage(new Page<StarAlbum>(1, 6), starAlbum).getList();
+
+		model.addAttribute("starAlbumlist", starAlbumlist);
 
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
 	}
