@@ -13,6 +13,19 @@
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag"
 	</sql>
+	<sql id="starPhotoColumns">
+		p.id AS "id",
+		p.star_id AS "starId",
+		p.url AS "url",
+		p.type AS "type",
+		p.title AS "title",
+		p.create_by AS "createBy.id",
+		p.create_date AS "createDate",
+		p.update_by AS "updateBy.id",
+		p.update_date AS "updateDate",
+		p.remarks AS "remarks",
+		p.del_flag AS "delFlag"
+	</sql>
 	
 	<sql id="starPhotoAlbumJoins">
 	</sql>
@@ -24,7 +37,23 @@
 		<include refid="starPhotoAlbumJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+
+	<select id="findListByAlbum" resultType="com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto">
+		SELECT
+		<include refid="starPhotoColumns"/>
+		FROM star_album sb , star_photo p ,star_photo_album spa
+		<where>
+			sb.id = spa.album_id
+			AND p.id = spa.photo_id
+			AND spa.del_flag = '0' AND sb.del_flag = '0' AND p.del_flag = '0'
+			<if test="starAlbum.id != null and starAlbum.id != ''">
+				AND sb.id = #{starAlbum.id}
+			</if>
+
+		</where>
+
+	</select>
+
 	<select id="findList" resultType="StarPhotoAlbum">
 		SELECT 
 			<include refid="starPhotoAlbumColumns"/>

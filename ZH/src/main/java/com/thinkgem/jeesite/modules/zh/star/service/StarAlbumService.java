@@ -39,17 +39,31 @@ public class StarAlbumService extends CrudService<StarAlbumDao, StarAlbum> {
 
     public StarAlbum get(String id) {
         StarAlbum starAlbum = super.get(id);
+        List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(starAlbum);
+        starAlbum.setPhotoList(photoList);
         List photoUrls = starAlbumDao.getPhotoUrls(id);
         starAlbum.setPhotoUrls(photoUrls.toString().replace(",", "|").replace("[", "").replace("]", ""));
         return starAlbum;
     }
 
     public List<StarAlbum> findList(StarAlbum starAlbum) {
-        return super.findList(starAlbum);
+        List<StarAlbum> list = super.findList(starAlbum);
+        for (StarAlbum st:list) {
+            List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(st);
+            st.setPhotoList(photoList);
+        }
+        return list;
     }
 
     public Page<StarAlbum> findPage(Page<StarAlbum> page, StarAlbum starAlbum) {
-        return super.findPage(page, starAlbum);
+        page = super.findPage(page, starAlbum);
+        List<StarAlbum> list = page.getList();
+        for (StarAlbum st: list) {
+            List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(st);
+            st.setPhotoList(photoList);
+        }
+        page.setList(list);
+        return page;
     }
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)

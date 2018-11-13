@@ -3,9 +3,12 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 import com.thinkgem.jeesite.modules.sys.entity.User;
 import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 /**
  * 相册Entity
@@ -21,7 +24,17 @@ public class StarAlbum extends DataEntity<StarAlbum> {
 	private String url;		// 相册封面
 	private String isShow;		// 是否公开
 	private Integer showCount;		// 浏览次数
-	private String  photoUrls;
+	private String  photoUrls;   //相册图片url
+	private List<StarPhoto> photoList;  //相册里的图片对象
+
+	@JsonIgnore
+	public List<StarPhoto> getPhotoList() {
+		return photoList;
+	}
+
+	public void setPhotoList(List<StarPhoto> photoList) {
+		this.photoList = photoList;
+	}
 
 	public String getPhotoUrls() {
 		return photoUrls;

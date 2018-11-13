@@ -34,14 +34,20 @@
 	<style>
 		.w3threespecialityw3ls-info {
 			width: 380px;
-			height: 285px;
+			height: 338px;
 		}
 		.w3threespecialityw3ls-info img {
 			width: 100%;
 			/*height: 100%;*/
 		}
-		.h3 {
-			font-size: 21px
+		.album-front h3 {
+			font-size: 18px
+		}
+		.cs-style-3 figcaption {
+			height: 70px;
+		}
+		a{
+			color: #eee;
 		}
 	</style>
 </head>
@@ -142,7 +148,18 @@
 	</div>
 	<!-- //About -->
 
+	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+	<script type="text/javascript">
+        var $lightGallery = $;	//新的命名
+	</script>
+	<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
+	<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
+	<script>
 
+        $lightGallery(document).ready(function() {
+            $lightGallery(".lightGalleryBox").lightGallery();
+        });
+	</script>
 
 	<!-- Speciality -->
 	<div class="w3threespecialityw3ls" id="w3threespecialityw3ls">
@@ -150,18 +167,27 @@
 
 			<h2>为你代"颜"</h2>
 			<div class="grid cs-style-3">
-				<c:forEach items="${starAlbumlist}" var="p">
-					<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
-						<figure>
-							<div class="w3threespecialityw3ls-info">
-								<img src="${uploadfile}${p.url}" alt="Couture">
+					<c:forEach items="${starAlbumlist}" var="p">
+							<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
+								<div class="lightGalleryBox">
+									<a data-src="${uploadfile}${p.url}" title="${p.name}" >
+										<figure>
+											<div class="w3threespecialityw3ls-info">
+												<img src="${uploadfile}${p.url}" alt="Couture">
+											</div>
+											<figcaption class="album-front">
+												<h3>${p.name}</h3>
+											</figcaption>
+										</figure>
+									</a>
+									<c:forEach items="${p.photoList}" var="img">
+										<a data-src="${uploadfile}${img.url}"  title="${img.title}">
+											<img src="${uploadfile}${img.url}" hidden="hidden"  alt="Couture">
+										</a>
+									</c:forEach>
+								</div>
 							</div>
-							<figcaption>
-								<h3>${p.name}</h3>
-							</figcaption>
-						</figure>
-					</div>
-				</c:forEach>
+					</c:forEach>
 				<div class="clearfix"></div>
 			</div>
 			<div class="clearfix"></div>
@@ -274,12 +300,7 @@
 					<div class="gallery-grids">
 						<div class="col-md-4 col-sm-4 gallery-top">
 							<a href="${ctxStatic}/zh/images/fashion-1.jpg" class="swipebox">
-								<figure class="effect-bubba">
-									<img src="${ctxStatic}/zh/images/fashion-1.jpg" alt="" class="img-responsive">
-									<figcaption>
-										<h4>Photography</h4>
-									</figcaption>
-								</figure>
+
 							</a>
 						</div>
 						<div class="col-md-4 col-sm-4 gallery-top">
@@ -758,20 +779,23 @@
 
 	<!-- Custom-JavaScript-File-Links -->
 
-		<!-- Default-JavaScript -->   <script type="text/javascript" src="${ctxStatic}/zh/js/jquery.min.js"></script>
-		<!-- Bootstrap-JavaScript --> <script type="text/javascript" src="${ctxStatic}/zh/js/bootstrap.min.js"></script>
+		<!-- Bootstrap-JavaScript --> <script type="text/javascript" src="${ctxStatic}/zh/js/jquery.min1.js"></script>
+		<!-- Default-JavaScript --><script type="text/javascript" src="${ctxStatic}/zh/js/bootstrap.min.js"></script>
 
-		<!-- Slider-JavaScript-Files -->
+
+
+
+	<!-- Slider-JavaScript-Files -->
 			<script type="text/javascript" src="${ctxStatic}/zh/js/jquery.easing.1.3.js"></script>
 			<script type="text/javascript" src="${ctxStatic}/zh/js/jquery.mobile.customized.min.js"></script>
 			<script type="text/javascript" src="${ctxStatic}/zh/js/camera.js"></script>
 			<script>
 				jQuery(function(){
-					jQuery('#camera_wrap_2').camera({
+                    jQuery("#camera_wrap_2").camera({
 						loader: 'bar',
 						speed: 1000,
 						pagination: false,
-						thumbnails: false,
+						thumbnails: false
 					});
 				});
 			</script>
