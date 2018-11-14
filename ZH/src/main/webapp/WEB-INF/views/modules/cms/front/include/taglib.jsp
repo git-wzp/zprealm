@@ -13,4 +13,4 @@
 <c:set var="ctxStaticFront" value="${ctxStatic}/modules/cms/front"/>
 <c:set var="ctxStaticTheme" value="${ctxStaticFront}/themes/${site.theme}"/>
 <c:set var="urlSuffix" value="${fns:getUrlSuffix()}"/>
-<c:set var="uploadfile" value="http://www.zprealm.cn:8090"/>
+<c:set var="uploadfile" value="${fns:getUploadfile()}"/>

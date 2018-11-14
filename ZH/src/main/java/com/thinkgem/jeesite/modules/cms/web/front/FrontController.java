@@ -90,7 +90,7 @@ public class FrontController extends BaseController{
 		String html = "";
 		List<StarPhoto> photoList = starAlbumService.get(id).getPhotoList();
 		for (StarPhoto s:photoList) {
-		html += "<a data-src=\"http://www.zprealm.cn:8090"+s.getUrl()+"\"  title=\""+s.getTitle()+"\"><img src=\"http://www.zprealm.cn:8090"+s.getUrl()+"\" hidden=\"hidden\"  alt=\"Couture\"></a>";
+		html += "<a data-src=\""+Global.getUploadfile()+s.getUrl()+"\"  title=\""+s.getTitle()+"\"><img src=\""+Global.getUploadfile()+s.getUrl()+"\" hidden=\"hidden\"  alt=\"Couture\"></a>";
 		}
 		return  html;
 	}

@@ -101,6 +101,13 @@ public class Global {
     }
 
     /**
+     * 获取Nginx 文件上传路径
+     */
+    public static String getUploadfile() {
+        return getConfig("uploadfile");
+    }
+
+    /**
      * 是否是演示模式，演示模式下不能修改用户、角色、密码、菜单、授权
      */
     public static Boolean isDemoMode() {
