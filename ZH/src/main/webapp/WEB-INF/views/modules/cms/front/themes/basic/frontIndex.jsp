@@ -170,22 +170,6 @@
             $lightGallery(".lightGalleryBox").lightGallery();
         };
 	</script>
-<script>
-	/*$(function(){
-	    $(".lightGalleryBox a").click(function(){
-            var id = $(this).children("span").text();
-            console.log("text"+id);
-			var s  = $(this).parent();
-            $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
-                   s.append(result);
-                }
-            });
-	         console.log(s.html());
-            $lightGallery(".lightGalleryBox").lightGallery();
-
-		})
-	})*/
-</script>
 
 	<!-- Speciality -->
 	<div class="w3threespecialityw3ls" id="w3threespecialityw3ls">
