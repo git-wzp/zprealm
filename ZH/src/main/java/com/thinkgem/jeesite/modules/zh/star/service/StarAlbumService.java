@@ -39,10 +39,12 @@ public class StarAlbumService extends CrudService<StarAlbumDao, StarAlbum> {
 
     public StarAlbum get(String id) {
         StarAlbum starAlbum = super.get(id);
-        List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(starAlbum);
-        starAlbum.setPhotoList(photoList);
-        List photoUrls = starAlbumDao.getPhotoUrls(id);
-        starAlbum.setPhotoUrls(photoUrls.toString().replace(",", "|").replace("[", "").replace("]", ""));
+        if(starAlbum!=null){
+            List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(starAlbum);
+            starAlbum.setPhotoList(photoList);
+            List photoUrls = starAlbumDao.getPhotoUrls(id);
+            starAlbum.setPhotoUrls(photoUrls.toString().replace(",", "|").replace("[", "").replace("]", ""));
+        }
         return starAlbum;
     }
 

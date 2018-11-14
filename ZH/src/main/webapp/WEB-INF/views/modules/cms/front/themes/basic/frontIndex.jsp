@@ -155,11 +155,37 @@
 	<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
 	<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
 	<script>
-
-        $lightGallery(document).ready(function() {
+        window.onload = function(){
+            setTimeout(lightGallery,2000);
+        };
+         function lightGallery() {
+            $(".lightGalleryBox a").each(function(){
+                var id = $(this).children("span").text();
+                var s  = $(this).parent();
+                $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
+                        s.append(result);
+                    }
+                });
+			});
             $lightGallery(".lightGalleryBox").lightGallery();
-        });
+        };
 	</script>
+<script>
+	/*$(function(){
+	    $(".lightGalleryBox a").click(function(){
+            var id = $(this).children("span").text();
+            console.log("text"+id);
+			var s  = $(this).parent();
+            $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
+                   s.append(result);
+                }
+            });
+	         console.log(s.html());
+            $lightGallery(".lightGalleryBox").lightGallery();
+
+		})
+	})*/
+</script>
 
 	<!-- Speciality -->
 	<div class="w3threespecialityw3ls" id="w3threespecialityw3ls">
@@ -171,6 +197,7 @@
 							<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
 								<div class="lightGalleryBox">
 									<a data-src="${uploadfile}${p.url}" title="${p.name}" >
+										<span hidden="hidden">${p.id}</span>
 										<figure>
 											<div class="w3threespecialityw3ls-info">
 												<img src="${uploadfile}${p.url}" alt="Couture">
@@ -180,11 +207,12 @@
 											</figcaption>
 										</figure>
 									</a>
-									<c:forEach items="${p.photoList}" var="img">
-										<a data-src="${uploadfile}${img.url}"  title="${img.title}">
-											<img src="${uploadfile}${img.url}" hidden="hidden"  alt="Couture">
-										</a>
-									</c:forEach>
+									<%--考虑到打开首页加载图片过多  延迟2秒加载--%>
+									<%--<c:forEach items="${p.photoList}" var="img">--%>
+										<%--<a data-src="${uploadfile}${img.url}"  title="${img.title}">--%>
+											<%--<img src="${uploadfile}${img.url}" hidden="hidden"  alt="Couture">--%>
+										<%--</a>--%>
+									<%--</c:forEach>--%>
 								</div>
 							</div>
 					</c:forEach>
@@ -781,9 +809,6 @@
 
 		<!-- Bootstrap-JavaScript --> <script type="text/javascript" src="${ctxStatic}/zh/js/jquery.min1.js"></script>
 		<!-- Default-JavaScript --><script type="text/javascript" src="${ctxStatic}/zh/js/bootstrap.min.js"></script>
-
-
-
 
 	<!-- Slider-JavaScript-Files -->
 			<script type="text/javascript" src="${ctxStatic}/zh/js/jquery.easing.1.3.js"></script>

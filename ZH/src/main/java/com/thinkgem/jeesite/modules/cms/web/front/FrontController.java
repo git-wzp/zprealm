@@ -80,10 +80,19 @@ public class FrontController extends BaseController{
 //		为你代颜 相册
 		StarAlbum starAlbum = new StarAlbum();
 		List<StarAlbum> starAlbumlist = starAlbumService.findPage(new Page<StarAlbum>(1, 6), starAlbum).getList();
-
 		model.addAttribute("starAlbumlist", starAlbumlist);
-
 		return "modules/cms/front/themes/"+site.getTheme()+"/frontIndex";
+	}
+
+	@RequestMapping("alubmPhotoList")
+	@ResponseBody
+	public String alubmPhotoList(@RequestParam("id") String id){
+		String html = "";
+		List<StarPhoto> photoList = starAlbumService.get(id).getPhotoList();
+		for (StarPhoto s:photoList) {
+		html += "<a data-src=\"http://www.zprealm.cn:8090"+s.getUrl()+"\"  title=\""+s.getTitle()+"\"><img src=\"http://www.zprealm.cn:8090"+s.getUrl()+"\" hidden=\"hidden\"  alt=\"Couture\"></a>";
+		}
+		return  html;
 	}
 
 	/**
