@@ -49,6 +49,14 @@
 		a{
 			color: #eee;
 		}
+		.agileaboutaits-image-1 {
+			height: 390px;
+			overflow: hidden;
+		}
+		.agileaboutaits-image-2 {
+			height: 260px;
+			overflow: hidden;
+		}
 	</style>
 </head>
 <!-- //Head -->
@@ -56,7 +64,28 @@
 <!-- Body -->
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-
+<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+    var $lightGallery = $;	//新的命名
+</script>
+<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
+<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
+<script>
+    window.onload = function(){
+        setTimeout(lightGallery,2000);
+    };
+    function lightGallery() {
+        $(".lightGalleryBox a").each(function(){
+            var id = $(this).children("span").text();
+            var s  = $(this).parent();
+            $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
+                    s.append(result);
+                }
+            });
+        });
+        $lightGallery(".lightGalleryBox").lightGallery();
+    };
+</script>
 
 	<!-- Header -->
 	<div class="agileheaderw3ls" id="agilehomewthree">
@@ -84,9 +113,10 @@
 		<div class="w3slideraits">
 			<div class="camera_wrap w3layouts agileits camera_magenta_skin" id="camera_wrap_2">
 				<c:forEach items="${bgPhoto}" var="bg">
-					<div data-src="${uploadfile}${bg.url}" class="w3layouts agileits">
+					<div  data-src="${uploadfile}${bg.url}" class="w3layouts agileits">
 						<div class="camera_caption w3layouts agileits fadeFromBottom">
 							<h3 class="w3layouts agileits">${bg.title}</h3>
+							<h2 hidden="hidden">${bg.starId}</h2>
 						</div>
 					</div>
 				</c:forEach>
@@ -95,25 +125,42 @@
 		<!-- //Slider -->
 	</div>
 	<!-- //Header -->
+<%-- 个人信息对照轮播图 script--%>
+<script>
+	$(function(){
+		setTimeout(1000);
+        fn();
+    });
+     function fn(){
+		 var defult = "";
+         var id = $("div.cameracurrent").find("h2").text();
+         if(id != defult && id != null){
+			$(".agileaboutaits").hide();
+			$("#"+id).show();
+		 }
+        setTimeout(fn, 500)
+    }
+</script>
+<%-- 个人信息对照轮播图 script--%>
 
 	<!-- About -->
-	<div class="agileaboutaitsabout" id="agileaboutaitsabout">
-		<div class="agileaboutaits">
+	<div class="agileaboutaitsabout" >
+
+		<c:forEach items="${starMessageList}" var="starMessage" >
+		<div class="agileaboutaits" hidden="hidden" id="${starMessage.id}">
 			<div class="container">
-
 				<div class="col-md-6 col-sm-6 agileaboutaits-grid agileaboutaits-info">
-
 					<h1>关于 Ta</h1>
-					<P>张杰，1982年12月20日出生于四川成都，毕业于四川师范大学，内地流行男歌手，音乐厂牌“行星文化”创始人。2004年获我型我秀全国总冠军出道。2007年参加快乐男声；推出EP《最美的太阳》。2008年推出专辑《明天过后》；担任北京奥运会火炬手。2010年推出专辑《这，就是爱》；担任博鳌亚洲论坛表演嘉宾；获韩国MAMA颁奖礼亚洲之星奖。2012年在人民大会堂开启巡演；作品《风华正茂》获湖南省五个一 ... </P>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal">了解更多<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+					<P>${fns:abbr(starMessage.about,500 )}</P>
+					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal${starMessage.id}">了解更多<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
 				</div>
 
 				<div class="col-md-6 col-sm-6 agileaboutaits-grid agileaboutaits-image">
 					<div class="agileaboutaits-image-1">
-						<img src="${ctxStatic}/zh/images/zj02.jpg" alt="Couture">
+						<img src="${uploadfile}${starMessage.aboutPhoto1}" alt="Couture" >
 					</div>
 					<div class="agileaboutaits-image-2">
-						<img src="${ctxStatic}/zh/images/zj.jpg"  alt="Couture">
+						<img src="${uploadfile}${starMessage.aboutPhoto2}"  alt="Couture">
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -122,54 +169,31 @@
 				<!-- Tooltip -->
 				<div class="tooltip-content">
 
-					<div class="modal fade features-modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal fade features-modal" id="myModal${starMessage.id}" tabindex="-1" role="dialog" aria-hidden="true">
 						<div class="modal-dialog modal-lg">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-									<h4 class="modal-title">Rachel Weisz</h4>
+									<h4 class="modal-title">${starMessage.name}</h4>
 								</div>
 								<div class="modal-body">
-									<img src="${ctxStatic}/zh/images/bgzj06.jpg" alt="Hitech Info">
-									<p>张杰，1982年12月20日出生于四川成都，毕业于四川师范大学，内地流行男歌手，音乐厂牌“行星文化”创始人。
-										2004年获我型我秀全国总冠军出道 [1]  。2007年参加快乐男声；推出EP《最美的太阳》。2008年推出专辑《明天过后》；担任北京奥运会火炬手 [2]  。2010年推出专辑《这，就是爱》；担任博鳌亚洲论坛表演嘉宾 [3]  ；获韩国MAMA颁奖礼亚洲之星奖 [4]  。2012年在人民大会堂开启巡演；作品《风华正茂》获湖南省五个一工程奖 [5]  。2013年首登央视春晚演唱《给我你的爱》；赴美国伯克利音乐学院进修。2014年献唱南京青奥会主题曲《点亮未来》 [6]  ；获第42届全美音乐奖(AMA)年度国际艺人奖 [7]  。2016年在北京工体场开启张杰我想世界巡回演唱会，为内地首位工人体育场开唱80后歌手。2017年在洛杉矶杜比剧院开唱，为首位在奥斯卡杜比剧院开唱内地歌手；献唱第十三届全运会主题曲《健康赢未来》 [8]  ；入驻重庆杜莎夫人蜡像馆 [9]  ；十月世界巡演登陆欧洲，为首位在欧洲开唱的内地歌手 [10]  。2018年开唱北京鸟巢，创下鸟巢单场演唱会票房纪录 [11]  。
-										至今已发行12张唱片，举办51场个人演唱会 [12-13]  ，获33次“最受欢迎男歌手”和16次“最佳男歌手”奖，达成内地乐坛“最受欢迎男歌手”大满贯 [14]  ，三度献唱好莱坞电影（《星际迷航3》《间谍同盟》《变形金刚5》 [15-17]  ），三度献唱央视春晚 [18-20]  。
-										此外，张杰致力于慈善公益事业，2012年创立北斗星空爱心基金，累计创建39间“张杰音乐梦想教室” [21]  ，获中国儿童慈善奖-突出贡献奖 [22]  、位列中国慈善名人榜第22位 [23]  。</p>
+									<img src="${uploadfile}${starMessage.photoUrl}" alt="Hitech Info">
+									<p>
+											${starMessage.experience}
+									</p>
 								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
 				<!-- //Tooltip -->
-
 			</div>
 		</div>
+		</c:forEach>
 	</div>
 	<!-- //About -->
 
-	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
-	<script type="text/javascript">
-        var $lightGallery = $;	//新的命名
-	</script>
-	<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
-	<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
-	<script>
-        window.onload = function(){
-            setTimeout(lightGallery,2000);
-        };
-         function lightGallery() {
-            $(".lightGalleryBox a").each(function(){
-                var id = $(this).children("span").text();
-                var s  = $(this).parent();
-                $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
-                        s.append(result);
-                    }
-                });
-			});
-            $lightGallery(".lightGalleryBox").lightGallery();
-        };
-	</script>
+
 
 	<!-- Speciality -->
 	<div class="w3threespecialityw3ls" id="w3threespecialityw3ls">
@@ -215,8 +239,8 @@
 			<!-- Skills -->
 			<div id="about-us" class="parallax">
 				<h3>天籁之音</h3>
-
-				<div class="our-skills wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+				<iframe src="https://www.hackhp.com/demo/MKOnlineMusicPlayer/" border="0" marginwidth="0" marginheight="0" scrolling="+s+" width="100%" height="500" frameborder="0"></iframe>
+				<%--<div class="our-skills wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 					<div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
 						<p class="lead">Photography</p>
 						<div class="progress">
@@ -241,13 +265,13 @@
 							<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="95">95%</div>
 						</div>
 					</div>
-				</div>
+				</div>--%>
 			</div>
 			<!-- //Skills -->
 
 			<!-- Stats -->
 			<div class="stats">
-				<h3>生活八卦</h3>
+				<h3>生活八卦/新闻活动</h3>
 
 				<div class="stats-info">
 					<div class="col-md-3 col-sm-3 stats-grid stats-grid-1">
@@ -288,8 +312,6 @@
 	</div>
 	<!-- //Progressive-Effects -->
 
-
-
 	<!-- Portfolio -->
 	<div class="portfolio" id="portfolio">
 		<h3>影视综艺</h3>
@@ -312,7 +334,12 @@
 					<div class="gallery-grids">
 						<div class="col-md-4 col-sm-4 gallery-top">
 							<a href="${ctxStatic}/zh/images/fashion-1.jpg" class="swipebox">
-
+								<figure class="effect-bubba">
+									<img src="${ctxStatic}/zh/images/fashion-1.jpg" alt="" class="img-responsive">
+									<figcaption>
+										<h4>Photography</h4>
+									</figcaption>
+								</figure>
 							</a>
 						</div>
 						<div class="col-md-4 col-sm-4 gallery-top">
@@ -703,9 +730,6 @@
 	<!-- //Portfolio -->
 
    <div class="tlinks">Collect from <a href="http://www.cssmoban.com/" ></a></div>
-
-
-
 	<!-- Booking -->
 <%--	<div class="w3layoutsbooking" id="contact">
 		<div class="container">
@@ -806,6 +830,12 @@
 						pagination: false,
 						thumbnails: false
 					});
+                    jQuery("#camera_wrap_3").camera({
+						loader:'pie',
+                        speed: 1000,
+                        pagination: false,
+                        thumbnails: false
+                    });
 				});
 			</script>
 		<!-- //Slider-JavaScript-Files -->

@@ -3,15 +3,17 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.service;
 
-import java.util.List;
-
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.service.CrudService;
+import com.thinkgem.jeesite.modules.zh.star.dao.StarPhotoDao;
+import com.thinkgem.jeesite.modules.zh.star.dao.StarStarmessageDao;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.service.CrudService;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
-import com.thinkgem.jeesite.modules.zh.star.dao.StarStarmessageDao;
+import java.util.List;
 
 /**
  * 明星资料Service
@@ -22,8 +24,21 @@ import com.thinkgem.jeesite.modules.zh.star.dao.StarStarmessageDao;
 @Transactional(readOnly = true)
 public class StarStarmessageService extends CrudService<StarStarmessageDao, StarStarmessage> {
 
+	@Autowired
+	private StarPhotoDao starPhotoDao;
 	public StarStarmessage get(String id) {
-		return super.get(id);
+		StarStarmessage starStarmessage = super.get(id);
+		if(id!=null && id != "" ) {
+			StarPhoto starPhoto = new StarPhoto();
+			starPhoto.setType("2");
+			starPhoto.setStarId(id);
+			List<StarPhoto> list = starPhotoDao.findList(starPhoto);
+			if (list.size() >= 2) {
+				starStarmessage.setAboutPhoto1(list.get(0).getUrl());
+				starStarmessage.setAboutPhoto2(list.get(1).getUrl());
+			}
+		}
+		return starStarmessage;
 	}
 	
 	public List<StarStarmessage> findList(StarStarmessage starStarmessage) {

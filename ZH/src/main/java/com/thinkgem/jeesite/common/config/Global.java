@@ -108,6 +108,12 @@ public class Global {
     }
 
     /**
+     * 获取404图片在nginx的位置
+     */
+    public static String ge404Image() {
+        return getConfig("404Image");
+    }
+    /**
      * 是否是演示模式，演示模式下不能修改用户、角色、密码、菜单、授权
      */
     public static Boolean isDemoMode() {

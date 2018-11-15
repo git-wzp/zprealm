@@ -4,6 +4,7 @@
 package com.thinkgem.jeesite.modules.zh.star.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -26,7 +27,25 @@ public class StarStarmessage extends DataEntity<StarStarmessage> {
 	private String profession;		// 职业
 	private String school;		// 毕业院校
 	private String experience;		// 个人经历
-	
+	private String aboutPhoto1 = Global.ge404Image();
+	private String aboutPhoto2 = Global.ge404Image();;
+
+	public String getAboutPhoto1() {
+		return aboutPhoto1;
+	}
+
+	public void setAboutPhoto1(String aboutPhoto1) {
+		this.aboutPhoto1 = aboutPhoto1;
+	}
+
+	public String getAboutPhoto2() {
+		return aboutPhoto2;
+	}
+
+	public void setAboutPhoto2(String aboutPhoto2) {
+		this.aboutPhoto2 = aboutPhoto2;
+	}
+
 	public StarStarmessage() {
 		super();
 	}

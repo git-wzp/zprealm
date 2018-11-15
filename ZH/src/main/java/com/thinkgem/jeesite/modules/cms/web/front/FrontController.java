@@ -23,8 +23,10 @@ import com.thinkgem.jeesite.modules.cms.service.SiteService;
 import com.thinkgem.jeesite.modules.cms.utils.CmsUtils;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarAlbum;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
 import com.thinkgem.jeesite.modules.zh.star.service.StarAlbumService;
 import com.thinkgem.jeesite.modules.zh.star.service.StarPhotoService;
+import com.thinkgem.jeesite.modules.zh.star.service.StarStarmessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +67,8 @@ public class FrontController extends BaseController{
 	private StarPhotoService starPhotoService;
 	@Autowired
 	private StarAlbumService starAlbumService;
+	@Autowired
+	private StarStarmessageService starStarmessageService;
 	/**
 	 * 网站首页
 	 */
@@ -73,10 +78,17 @@ public class FrontController extends BaseController{
 		model.addAttribute("site", site);
 		model.addAttribute("isIndex", true);
 
+		//		人物信息
+		List<StarStarmessage> starMessageList = new ArrayList<StarStarmessage>();
+
 //		TODO：前台首页需要的图片 选取人气最高的5位明星 各一张背景图片
 		List<StarPhoto> bgPhoto = starPhotoService.findListBGPhoto("5");
 		model.addAttribute("bgPhoto", bgPhoto);
 
+		for (StarPhoto s :bgPhoto) {
+			starMessageList.add(starStarmessageService.get(s.getStarId()));
+		}
+		model.addAttribute("starMessageList", starMessageList);
 //		为你代颜 相册
 		StarAlbum starAlbum = new StarAlbum();
 		List<StarAlbum> starAlbumlist = starAlbumService.findPage(new Page<StarAlbum>(1, 6), starAlbum).getList();
