@@ -20,6 +20,10 @@
 <!-- Insex-Page.CSS --> <link rel="stylesheet" href="${ctxStatic}/zh/css/style.css" 				 type="text/css" media="all">
 <!-- Slider-CSS --> 	<link rel="stylesheet" href="${ctxStatic}/zh/css/camera.css" id="camera-css" type="text/css" media="all">
 <!-- Portfolio-CSS -->	<link rel="stylesheet" href="${ctxStatic}/zh/css/swipebox.css"				 type="text/css" media="all">
+<!-- login-CSS -->		<link rel="stylesheet" type="text/css" href="${ctxStatic}/zh/css/login/font-awesome.min.css">
+<!-- login-CSS -->		<link rel="stylesheet" type="text/css" href="${ctxStatic}/zh/css/login/material-design-iconic-font.min.css">
+<!-- login-CSS -->		<link rel="stylesheet" type="text/css" href="${ctxStatic}/zh/css/login/util_login.css">
+<!-- login-CSS -->		<link rel="stylesheet" type="text/css" href="${ctxStatic}/zh/css/login/main_login.css">
 <!-- //Custom-Stylesheet-Links -->
 
 <!-- Fonts -->
@@ -28,9 +32,6 @@
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900" type="text/css" media="all">
 <!-- //Fonts -->
 
-<!-- Supportive-JavaScript -->
-<script src="${ctxStatic}/zh/js/modernizr.js"></script>
-<!-- //Supportive-JavaScript -->
 	<style>
 		.w3threespecialityw3ls-info {
 			width: 380px;
@@ -46,9 +47,9 @@
 		.cs-style-3 figcaption {
 			height: 70px;
 		}
-		a{
+		/*a{
 			color: #eee;
-		}
+		}*/
 		.agileaboutaits-image-1 {
 			height: 390px;
 			overflow: hidden;
@@ -86,10 +87,72 @@
         $lightGallery(".lightGalleryBox").lightGallery();
     };
 </script>
+<!-- Supportive-JavaScript -->
+<script src="${ctxStatic}/zh/js/modernizr.js"></script>
+<!-- //Supportive-JavaScript -->
+
+<div id="loginWindow" hidden="hidden" style="z-index: 200">
+	<div class="limiter">
+		<div class="container-login100" style="position:fixed;z-index: 2;top: 28px;" >
+			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+				<div style="margin-top: -77px;float:  right;margin-right: -40px;">
+					<a href="#0" class="cd-loginclose" style="font-size: 54px;">×</a>
+				</div>
+				<form action="${ctx}/zh/login" class="login100-form validate-form">
+					<span class="login100-form-title p-b-49">登录</span>
+
+					<div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
+						<span class="label-input100">用户名</span>
+						<input class="input100" type="text" name="username" placeholder="请输入用户名" autocomplete="off">
+						<span class="focus-input100" data-symbol="&#xf206;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="请输入密码">
+						<span class="label-input100">密码</span>
+						<input class="input100" type="password" name="pass" placeholder="请输入密码">
+						<span class="focus-input100" data-symbol="&#xf190;"></span>
+					</div>
+
+					<div class="text-right p-t-8 p-b-31">
+						<a href="javascript:">忘记密码？</a>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<div class="wrap-login100-form-btn">
+							<div class="login100-form-bgbtn"></div>
+							<button class="login100-form-btn">登 录</button>
+						</div>
+					</div>
+
+					<div class="txt1 text-center p-t-54 p-b-20">
+						<span>第三方登录</span>
+					</div>
+
+					<div class="flex-c-m">
+						<a href="#" class="login100-social-item bg1">
+							<i class="fa fa-wechat"></i>
+						</a>
+
+						<a href="#" class="login100-social-item bg2">
+							<i class="fa fa-qq"></i>
+						</a>
+
+						<a href="#" class="login100-social-item bg3">
+							<i class="fa fa-weibo"></i>
+						</a>
+					</div>
+
+					<div class="flex-col-c p-t-25">
+						<a href="javascript:" class="txt2">立即注册</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
 
 	<!-- Header -->
 	<div class="agileheaderw3ls" id="agilehomewthree">
-
 		<!-- Navigation -->
 		<section class="cd-section">
 			<a class="cd-bouncy-nav-trigger" href="#0">MENU</a>
@@ -98,11 +161,11 @@
 			<nav>
 				<ul class="cd-bouncy-nav">
 					<li><a class="scroll" href="#agilehomewthree">首页</a></li>
-					<li><a class="scroll" href="#portfolio">登录</a></li>
-					<li><a class="scroll" href="#agileaboutaitsabout">关于</a></li>
+					<li><a class="cd-login" href="#0">登录</a></li>
+					<%--<li><a class="scroll" href="#agileaboutaitsabout">关于</a></li>
 					<li><a class="scroll" href="#w3threespecialityw3ls">图片</a></li>
 					<li><a class="scroll" href="#skills">视频</a></li>
-					<li><a class="scroll" href="#contact">联系我们</a></li>
+					<li><a class="scroll" href="#contact">联系我们</a></li>--%>
 				</ul>
 			</nav>
 			<a href="#0" class="cd-close">Close modal</a>
@@ -831,7 +894,7 @@
 						thumbnails: false
 					});
                     jQuery("#camera_wrap_3").camera({
-						loader:'pie',
+						loader:'bar',
                         speed: 1000,
                         pagination: false,
                         thumbnails: false

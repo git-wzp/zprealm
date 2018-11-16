@@ -13,6 +13,13 @@ jQuery(document).ready(function($){
 			triggerBouncyNav(false);
 		}
 	});
+	$('.cd-login').on('click',function () {
+        $("#loginWindow").show();
+    });
+    $('.cd-loginclose').on('click',function () {
+        $("#loginWindow").hide();
+        triggerBouncyNav(false);
+    });
 
 	function triggerBouncyNav($bool) {
 		//check if no nav animation is ongoing

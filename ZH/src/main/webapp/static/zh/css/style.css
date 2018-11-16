@@ -110,6 +110,13 @@ section.cd-section {
 	margin-left: 30px;
 }
 
+section.login-section {
+	position: fixed;
+	z-index: 99999;
+	margin-top: 50px;
+	margin-left: 30px;
+}
+
 .cd-bouncy-nav-trigger {
 	background: #FFF;
 	color: #000;
