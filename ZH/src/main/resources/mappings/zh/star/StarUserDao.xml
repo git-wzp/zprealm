@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.zh.star.dao.StarUserDao">
+    
+	<sql id="starUserColumns">
+		a.id AS "id",
+		a.login_name AS "loginName",
+		a.password AS "password",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.email AS "email",
+		a.phone AS "phone",
+		a.photo AS "photo",
+		a.star_id AS "starId",
+		a.is_fansadmin AS "isFansadmin",
+		a.fans_id AS "fansId",
+		a.about AS "about",
+		a.login_ip AS "loginIp",
+		a.login_date AS "loginDate",
+		a.login_flag AS "loginFlag",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="starUserJoins">
+	</sql>
+    
+	<select id="get" resultType="StarUser">
+		SELECT 
+			<include refid="starUserColumns"/>
+		FROM star_user a
+		<include refid="starUserJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="StarUser">
+		SELECT 
+			<include refid="starUserColumns"/>
+		FROM star_user a
+		<include refid="starUserJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="loginName != null and loginName != ''">
+				AND a.login_name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{loginName}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{loginName}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{loginName},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sex != null and sex != ''">
+				AND a.sex = #{sex}
+			</if>
+			<if test="email != null and email != ''">
+				AND a.email = #{email}
+			</if>
+			<if test="phone != null and phone != ''">
+				AND a.phone LIKE 
+					<if test="dbName == 'oracle'">'%'||#{phone}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{phone}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{phone},'%')</if>
+			</if>
+			<if test="starId != null and starId != ''">
+				AND a.star_id = #{starId}
+			</if>
+			<if test="loginFlag != null and loginFlag != ''">
+				AND a.login_flag = #{loginFlag}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="StarUser">
+		SELECT 
+			<include refid="starUserColumns"/>
+		FROM star_user a
+		<include refid="starUserJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO star_user(
+			id,
+			login_name,
+			password,
+			name,
+			sex,
+			email,
+			phone,
+			photo,
+			star_id,
+			is_fansadmin,
+			fans_id,
+			about,
+			login_ip,
+			login_date,
+			login_flag,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{loginName},
+			#{password},
+			#{name},
+			#{sex},
+			#{email},
+			#{phone},
+			#{photo},
+			#{starId},
+			#{isFansadmin},
+			#{fansId},
+			#{about},
+			#{loginIp},
+			#{loginDate},
+			#{loginFlag},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE star_user SET 	
+			login_name = #{loginName},
+			name = #{name},
+			sex = #{sex},
+			email = #{email},
+			phone = #{phone},
+			photo = #{photo},
+			star_id = #{starId},
+			is_fansadmin = #{isFansadmin},
+			about = #{about},
+			login_flag = #{loginFlag},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE star_user SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
