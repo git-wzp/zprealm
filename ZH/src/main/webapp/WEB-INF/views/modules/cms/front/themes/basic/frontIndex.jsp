@@ -6,7 +6,7 @@
 <!-- Head -->
 <head>
 
-<title>My Sunshine --未登录</title>
+<title>My Sunshine ${starUserName}</title>
 
 <!-- Meta-Tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,6 +70,7 @@
     var $lightGallery = $;	//新的命名
 </script>
 <script src="${ctxStatic}/zh/js/lightGallery.js"></script>
+
 <link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
 <script>
     window.onload = function(){
@@ -91,6 +92,46 @@
 <script src="${ctxStatic}/zh/js/modernizr.js"></script>
 <!-- //Supportive-JavaScript -->
 
+<script type="text/javascript">
+	$(function () {
+		$("#loginbtn").on("click",function(){
+            $("#resultMsg").hide();
+            $("#logining").show();
+            //加表单验证
+            setTimeout(function(){
+                $.ajax({
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "${ctx}/star/login" ,//url
+                    data: $('#loginform').serialize(),
+                    success: function (result) {
+ 							console.log("success"+result.success+result.resultMsg)
+                        if(result.success==true){
+                            $("#logining").hide();
+                            $("#resultMsg").text(result.resultMsg);
+                            $("#resultMsg").attr("style","color: green");
+                            $("#resultMsg").show();
+                            setTimeout(function(){
+                            	window.location.href="f";
+							},3000)
+                        }else {
+                            $("#logining").hide();
+                            $("#resultMsg").attr("style","color: red");
+                            $("#resultMsg").text(result.resultMsg);
+                            $("#resultMsg").show();
+                            console.log("2");
+                        }
+                    },
+                    error : function() {
+                        $("#logining").hide();
+                        $("#resultMsg").text("500访问异常，请联系管理员");
+                    }
+                });
+            },500)
+		})
+    })
+
+</script>
 <div id="loginWindow" hidden="hidden" style="z-index: 200">
 	<div class="limiter">
 		<div class="container-login100" style="position:fixed;z-index: 2;top: 28px;" >
@@ -98,7 +139,8 @@
 				<div style="margin-top: -77px;float:  right;margin-right: -40px;">
 					<a href="#0" class="cd-loginclose" style="font-size: 54px;">×</a>
 				</div>
-				<form action="${ctx}/zh/login" class="login100-form validate-form">
+				<form id="loginform" onsubmit="return false" action="##" class="login100-form validate-form" >
+				<%--<form id="loginform"  class="login100-form validate-form"  >--%>
 					<span class="login100-form-title p-b-49">登录</span>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
@@ -120,8 +162,10 @@
 					<div class="container-login100-form-btn">
 						<div class="wrap-login100-form-btn">
 							<div class="login100-form-bgbtn"></div>
-							<button class="login100-form-btn">登 录</button>
+							<button   class="login100-form-btn" id="loginbtn">登 录</button>
 						</div>
+						<span id="logining" hidden="hidden">正在登陆...</span>
+						<span id="resultMsg"   hidden="hidden"> </span>
 					</div>
 
 					<div class="txt1 text-center p-t-54 p-b-20">
@@ -150,6 +194,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="${ctxStatic}/zh/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${ctxStatic}/zh/js/login_validate.js"></script>
 
 	<!-- Header -->
 	<div class="agileheaderw3ls" id="agilehomewthree">
@@ -161,7 +207,12 @@
 			<nav>
 				<ul class="cd-bouncy-nav">
 					<li><a class="scroll" href="#agilehomewthree">首页</a></li>
-					<li><a class="cd-login" href="#0">登录</a></li>
+					<c:if test="${not empty starUserName}">
+						<li><a   href="${ctx}/star/loginOut">退出登录</a></li>
+					</c:if>
+					<c:if test="${empty starUserName}">
+						<li><a class="cd-login" href="#0">登录</a></li>
+					</c:if>
 					<%--<li><a class="scroll" href="#agileaboutaitsabout">关于</a></li>
 					<li><a class="scroll" href="#w3threespecialityw3ls">图片</a></li>
 					<li><a class="scroll" href="#skills">视频</a></li>
@@ -912,6 +963,7 @@
 			<script type="text/javascript" src="${ctxStatic}/zh/js/wow.min.js"></script>
 			<script type="text/javascript" src="${ctxStatic}/zh/js/mousescroll.js"></script>
 			<script type="text/javascript" src="${ctxStatic}/zh/js/main.js"></script>
+
 		<!-- //Progressive-Effects-Animation-JavaScript -->
 
 		<!-- Stats-Number-Scroller-Animation-JavaScript -->
@@ -962,6 +1014,8 @@
 		<!-- //Smooth-Scrolling-JavaScript -->
 
 	<!-- //Custom-JavaScript-File-Links -->
+
+
 
 
 
