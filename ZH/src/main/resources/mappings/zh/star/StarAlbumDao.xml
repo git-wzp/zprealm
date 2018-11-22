@@ -65,6 +65,9 @@
 			<if test="isShow != null and isShow != ''">
 				AND a.is_show = #{isShow}
 			</if>
+			<if test="starIds != null and starIds != ''">
+				AND a.star_ids = #{starIds}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">

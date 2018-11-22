@@ -7,6 +7,7 @@ import com.thinkgem.jeesite.common.persistence.Page;
 import com.thinkgem.jeesite.common.service.CrudService;
 import com.thinkgem.jeesite.modules.zh.star.dao.StarPhotoDao;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarPhoto;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,8 +46,7 @@ public class StarPhotoService extends CrudService<StarPhotoDao, StarPhoto> {
 	/**
 	 * 查询count个数的 背景图片
 	 */
-    public List<StarPhoto> findListBGPhoto(String count) {
-
-		return dao.findListBGPhoto(count);
+    public List<StarPhoto> findListBGPhoto(String count, StarUser starUser) {
+		return dao.findListBGPhoto(count,starUser);
 	}
 }
