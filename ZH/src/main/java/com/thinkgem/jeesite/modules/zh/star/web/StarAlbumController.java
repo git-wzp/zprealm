@@ -87,5 +87,11 @@ public class StarAlbumController extends BaseController {
 		addMessage(redirectAttributes, "删除相册成功");
 		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
 	}
+	@RequestMapping(value = "albumClick")
+	public String albumClick() {
+		System.out.println("-----------WZP.print-----------" + 1 + ", 当前类=StarAlbumController.albumClick()");
+//		starAlbum.setShowCount(starAlbum.getShowCount()+1);
+		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
+	}
 
 }

@@ -162,6 +162,8 @@
 			star_id = #{starId},
 			is_fansadmin = #{isFansadmin},
 			about = #{about},
+			login_ip = #{loginIp},
+			login_date = #{loginDate},
 			login_flag = #{loginFlag},
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},

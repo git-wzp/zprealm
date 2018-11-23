@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,9 +62,14 @@ public class StarLoginController extends BaseController {
         List<StarUser> list = starUserService.findList(starUser);
         if (list.size() > 0) {
             System.out.println("-----------WZP.print-----------" + "用户验证通过" + ", 当前类=StarLoginController.login()");
-            session.setAttribute("starUser", list.get(0));
+            starUser = list.get(0);
+            session.setAttribute("starUser", starUser);
             session.setAttribute("starUserName", username);
             result.setSuccess(true);
+            String lastLoginip = request.getRemoteAddr();
+            starUser.setLoginIp(lastLoginip);
+            starUser.setLoginDate(new Date());
+            starUserService.save(starUser);
             result.setResultMsg("登录成功，即将跳转个人页 3s");
             return result;
         } else {

@@ -109,7 +109,11 @@ public class FrontController extends BaseController {
         String html = "";
         List<StarPhoto> photoList = starAlbumService.get(id).getPhotoList();
         for (StarPhoto s : photoList) {
-            html += "<a data-src=\"" + Global.getUploadfile() + s.getUrl() + "\"  title=\"" + s.getTitle() + "\"><img src=\"" + Global.getUploadfile() + s.getUrl() + "\" hidden=\"hidden\"  alt=\"Couture\"></a>";
+//            灯箱展示时 如果没有标题说明 给一个相册名
+            if (s.getTitle()==null){
+                s.setTitle(starAlbumService.get(id).getName());
+            }
+            html += "<a data-src=\"" + Global.getUploadfile() + s.getUrl() + "\" data-title="+s.getTitle()+" \"><img src=\"" + Global.getUploadfile() + s.getUrl() + "\" hidden=\"hidden\"  alt=\"Couture\"></a>";
         }
         return html;
     }

@@ -25,8 +25,10 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>明星id：</label>
-				<form:input path="starId" htmlEscape="false" maxlength="32" class="input-medium"/>
+			<li><label>所属明星</label>
+				<%--<form:input path="starId" htmlEscape="false" maxlength="32" class="input-medium"/>--%>
+				<sys:treeselect id="starId" name="starId" value="${starPhoto.starId}" labelName="starName" labelValue="${fnz:getStarName(starPhoto.starId)}"
+								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
 			</li>
 			<li><label>图片类型：</label>
 				<form:select path="type" class="input-medium">

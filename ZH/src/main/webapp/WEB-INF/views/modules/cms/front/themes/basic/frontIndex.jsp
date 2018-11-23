@@ -256,7 +256,18 @@
     }
 </script>
 <%-- 个人信息对照轮播图 script--%>
+<%--ajax 相册访问次数--%>
+<script>
+	$(function () {
+        function albumClick() {
+            alert(1);
+            $.post("${ctx}/star/starAlbum/albumClick",{id:id},function(data){
+            })
+        }
+    })
 
+</script>
+<%--ajax 相册访问次数--%>
 	<!-- About -->
 	<div class="agileaboutaitsabout" >
 
@@ -266,7 +277,7 @@
 				<div class="col-md-6 col-sm-6 agileaboutaits-grid agileaboutaits-info">
 					<h1>关于 Ta</h1>
 					<P>${fns:abbr(starMessage.about,500 )}</P>
-					<button class="btn btn-primary" data-toggle="modal" data-target="#myModal${starMessage.id}">了解更多<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
+					<button class="btn btn-primary camera_stop"   data-toggle="modal" data-target="#myModal${starMessage.id}">了解更多<span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span></button>
 				</div>
 
 				<div class="col-md-6 col-sm-6 agileaboutaits-grid agileaboutaits-image">
@@ -316,13 +327,13 @@
 			<h2>为你代"颜"</h2>
 			<div class="grid cs-style-3">
 					<c:forEach items="${starAlbumlist}" var="p">
-							<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px">
-								<div class="lightGalleryBox">
-									<a data-src="${uploadfile}${p.url}" title="${p.name}" >
+							<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px;margin-left: 5px">
+								<div class="lightGalleryBox" onclick="albumClick();">
+									<a data-src="${uploadfile}${p.url}" data-title="${p.name}" >
 										<span hidden="hidden">${p.id}</span>
 										<figure>
 											<div class="w3threespecialityw3ls-info">
-												<img src="${uploadfile}${p.url}" alt="Couture">
+												<img src="${uploadfile}${p.url}" alt="Couture" >
 											</div>
 											<figcaption class="album-front">
 												<h3>${p.name}</h3>
@@ -360,26 +371,7 @@
 						<div class="progress">
 							<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="90">90%</div>
 						</div>
-					</div>
-					<div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="400ms">
-						<p class="lead">Editing</p>
-						<div class="progress">
-							<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="80">80%</div>
-						</div>
-					</div>
-					<div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="500ms">
-						<p class="lead">Direction</p>
-						<div class="progress">
-							<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="85">85%</div>
-						</div>
-					</div>
-					<div class="single-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-						<p class="lead">Quality</p>
-						<div class="progress">
-							<div class="progress-bar progress-bar-primary six-sec-ease-in-out" role="progressbar" aria-valuetransitiongoal="95">95%</div>
-						</div>
-					</div>
-				</div>--%>
+					</div>--%>
 			</div>
 			<!-- //Skills -->
 

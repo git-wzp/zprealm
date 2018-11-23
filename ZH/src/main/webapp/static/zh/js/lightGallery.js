@@ -26,9 +26,9 @@
             exThumbImage: false,
             index: false,
             thumbnail: true,
-            caption: false,
+            caption: true,
             captionLink: false,
-            desc: false,
+            desc: true,
             counter: false,
             controls: true,
             hideControlOnEnd: false,
@@ -356,6 +356,7 @@
             addDesc: function () {
                 if (settings.desc === true) {
                     var i, description = false;
+                    var title;
                     for (i = 0; i < $children.length; i++) {
                         if (settings.dynamic == true) {
                             description = settings.dynamicEl[i]['desc'];
@@ -363,7 +364,7 @@
                             description = $children.eq(i).attr('data-desc');;
                         }
                         if (typeof description == 'undefined' || description == null) {
-                            description = 'image ' + i + '';
+                            description ='( ' + (i+1) + ' / '+$children.length+')';
                         }
                         if (settings.caption === false) {
                             $slide.eq(i).append('<div class="info group"><span class="desc">' + description + '</span></div>');

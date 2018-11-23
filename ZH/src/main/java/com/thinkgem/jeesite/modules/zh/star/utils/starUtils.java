@@ -15,12 +15,21 @@ import javax.servlet.http.HttpSession;
  */
 public class starUtils {
 
+    /**
+     * 守护星选择 展示姓名
+     <sys:treeselect id="starMessage" name="starId" value="${starUser.starId}" labelName="starName" labelValue="${fnz:getStarName(starUser.starId)}"
+     title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
+     */
     public static String getStarName(String id) {
         String starName = "";
-        StarStarmessageService starStarmessageService = SpringContextHolder.getBean(StarStarmessageService.class);
-        StarStarmessage starStarmessage = starStarmessageService.get(id);
-        if (starStarmessage != null) {
-            starName = starStarmessage.getName();
+        if (id != null && !"".equals(id)) {
+            StarStarmessageService starStarmessageService = SpringContextHolder.getBean(StarStarmessageService.class);
+            StarStarmessage starStarmessage = starStarmessageService.get(id);
+            if (starStarmessage != null) {
+                starName = starStarmessage.getName();
+            }else {
+                starName = "未知star或已删除";
+            }
         }
         return starName;
     }
@@ -38,10 +47,10 @@ public class starUtils {
      * 获取当前star登录用户
      */
     public static StarUser getCurrentUser(HttpServletRequest request) {
-        if(isStarLogin(request)){
+        if (isStarLogin(request)) {
             StarUser starUser = (StarUser) request.getSession().getAttribute("starUser");
             return starUser;
-        }else {
+        } else {
             return null;
         }
     }

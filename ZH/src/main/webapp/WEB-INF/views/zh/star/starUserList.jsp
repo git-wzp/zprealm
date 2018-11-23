@@ -25,6 +25,11 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
+			<li><label>守护星：</label>
+					<%--<form:input path="starId" htmlEscape="false" maxlength="64" class="input-medium"/>--%>
+				<sys:treeselect id="starMessage" name="starId" value="${starUser.starId}" labelName="starName" labelValue="${fnz:getStarName(starUser.starId)}"
+								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
+			</li>
 			<li><label>昵称：</label>
 				<form:input path="loginName" htmlEscape="false" maxlength="100" class="input-medium"/>
 			</li>
@@ -43,9 +48,7 @@
 			<li><label>电话：</label>
 				<form:input path="phone" htmlEscape="false" maxlength="200" class="input-medium"/>
 			</li>
-			<li><label>守护星：</label>
-				<form:input path="starId" htmlEscape="false" maxlength="64" class="input-medium"/>
-			</li>
+
 			<li><label>是否可登录：</label>
 				<form:radiobuttons path="loginFlag" items="${fns:getDictList('yes_no')}" itemLabel="label" itemValue="value" htmlEscape="false"/>
 			</li>
@@ -63,8 +66,8 @@
 				<th>电话</th>
 				<th>守护星</th>
 				<th>最后登陆时间</th>
+				<th>最后登录ip</th>
 				<th>更新时间</th>
-				<th>备注信息</th>
 				<shiro:hasPermission name="star:starUser:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -84,16 +87,16 @@
 					${starUser.phone}
 				</td>
 				<td>
-					${starUser.starId}
+					${fnz:getStarName(starUser.starId)}
 				</td>
 				<td>
 					<fmt:formatDate value="${starUser.loginDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<td>
-					<fmt:formatDate value="${starUser.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						${starUser.loginIp}
 				</td>
 				<td>
-					${starUser.remarks}
+					<fmt:formatDate value="${starUser.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="star:starUser:edit"><td>
     				<a href="${ctx}/star/starUser/form?id=${starUser.id}">修改</a>

@@ -35,7 +35,7 @@
 		<if test="starUser != null and starUser.starId != ''">
 			AND  a.star_id = #{starUser.starId}
 		</if>
-		<if test="starUser == null or starUser.starId != ''">
+		<if test="starUser == null ">
 			AND  a.star_id  in
 			(SELECT t.id FROM (SELECT * FROM star_starmessage WHERE del_flag = '0'  ORDER BY create_date DESC LIMIT ${count}) as t)  GROUP BY a.star_id
 		</if>

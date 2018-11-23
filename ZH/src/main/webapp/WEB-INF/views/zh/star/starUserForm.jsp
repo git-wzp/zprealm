@@ -77,7 +77,9 @@
 		<div class="control-group">
 			<label class="control-label">守护星：</label>
 			<div class="controls">
-				<form:input path="starId" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+				<%--<form:input path="starId" htmlEscape="false" maxlength="64" class="input-xlarge "/>--%>
+				<sys:treeselect id="starId" name="starId" value="${starUser.starId}" labelName="starName" labelValue="${fnz:getStarName(starUser.starId)}"
+								title="用户" url="/star/starStarmessage/treeData" cssClass="" allowClear="true" notAllowSelectParent="true"/>
 			</div>
 		</div>
 		<div class="control-group">
