@@ -62,7 +62,7 @@
 </head>
 <!-- //Head -->
 
-<!-- Body -->
+<!-- Body1 -->
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
 <script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
