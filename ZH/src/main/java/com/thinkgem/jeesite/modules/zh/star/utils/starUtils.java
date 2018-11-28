@@ -4,6 +4,7 @@ import com.thinkgem.jeesite.common.utils.SpringContextHolder;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarStarmessage;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarUser;
 import com.thinkgem.jeesite.modules.zh.star.service.StarStarmessageService;
+import com.thinkgem.jeesite.modules.zh.star.service.StarUserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,20 @@ public class starUtils {
             }
         }
         return starName;
+    }
+
+    public static String getStarUserName(String id) {
+        String userName = "";
+        if (id != null && !"".equals(id)) {
+            StarUserService starUserService = SpringContextHolder.getBean(StarUserService.class);
+            StarUser starUser = starUserService.get(id);
+            if (starUser != null) {
+                userName = starUser.getLoginName();
+            }else {
+                userName = "未知用户或已删除";
+            }
+        }
+        return userName;
     }
 
     /**

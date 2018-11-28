@@ -36,8 +36,10 @@
 		<div class="control-group">
 			<label class="control-label">所属用户：</label>
 			<div class="controls">
-				<sys:treeselect id="user" name="user.id" value="${starAlbum.user.id}" labelName="user.name" labelValue="${starAlbum.user.name}"
-					title="用户" url="/sys/office/treeData?type=3" cssClass="" allowClear="true" notAllowSelectParent="true"/>
+				<sys:treeselect id="starUser" name="starUser.id" value="${starAlbum.starUser.id}" labelName="starUser.name"
+								labelValue="${fnz:getStarUserName(starAlbum.starUser.id)}"
+								title="用户" url="/star/starUser/treeData" cssClass="" allowClear="true"
+								notAllowSelectParent="true"/>
 			</div>
 		</div>
 		<div class="control-group">
@@ -78,7 +80,12 @@
 				<form:radiobuttons  path="isShow" items="${fns:getDictList('star_album_isshow')}" itemLabel="label" itemValue="value" htmlEscape="false" class="required"/>
 			</div>
 		</div>
-
+		<div class="control-group">
+			<label class="control-label">浏览次数：</label>
+			<div class="controls">
+				<form:input path="showCount" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">备注信息：</label>
 			<div class="controls">

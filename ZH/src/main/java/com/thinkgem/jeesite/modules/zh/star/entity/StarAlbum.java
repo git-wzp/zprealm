@@ -5,7 +5,6 @@ package com.thinkgem.jeesite.modules.zh.star.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.thinkgem.jeesite.common.persistence.DataEntity;
-import com.thinkgem.jeesite.modules.sys.entity.User;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public class StarAlbum extends DataEntity<StarAlbum> {
 	
 	private static final long serialVersionUID = 1L;
-	private User user;		// 所属用户
+	private StarUser starUser;		// 所属用户
 	private String name;		// 相册名称
 	private String starIds;		// 所属star
 	private String url;		// 相册封面
@@ -52,14 +51,14 @@ public class StarAlbum extends DataEntity<StarAlbum> {
 		super(id);
 	}
 
-	public User getUser() {
-		return user;
+	public StarUser getStarUser() {
+		return starUser;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setStarUser(StarUser starUser) {
+		this.starUser = starUser;
 	}
-	
+
 	@Length(min=0, max=255, message="相册名称长度必须介于 0 和 255 之间")
 	public String getName() {
 		return name;

@@ -3,11 +3,12 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.thinkgem.jeesite.common.persistence.DataEntity;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * 星迷模块用户Entity
@@ -40,6 +41,7 @@ public class StarUser extends DataEntity<StarUser> {
 		super(id);
 	}
 
+	@NotNull
 	@Length(min=1, max=100, message="昵称长度必须介于 1 和 100 之间")
 	public String getLoginName() {
 		return loginName;
@@ -49,6 +51,7 @@ public class StarUser extends DataEntity<StarUser> {
 		this.loginName = loginName;
 	}
 	
+	@NotNull
 	@Length(min=1, max=100, message="密码长度必须介于 1 和 100 之间")
 	public String getPassword() {
 		return password;

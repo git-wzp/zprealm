@@ -3,9 +3,14 @@
  */
 package com.thinkgem.jeesite.modules.zh.star.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.thinkgem.jeesite.common.config.Global;
+import com.thinkgem.jeesite.common.persistence.Page;
+import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
+import com.thinkgem.jeesite.modules.zh.star.entity.StarUser;
+import com.thinkgem.jeesite.modules.zh.star.service.StarUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +18,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.thinkgem.jeesite.common.config.Global;
-import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
-import com.thinkgem.jeesite.common.utils.StringUtils;
-import com.thinkgem.jeesite.modules.zh.star.entity.StarUser;
-import com.thinkgem.jeesite.modules.zh.star.service.StarUserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 星迷模块用户Controller
@@ -79,5 +83,32 @@ public class StarUserController extends BaseController {
 		addMessage(redirectAttributes, "删除用户成功");
 		return "redirect:"+Global.getAdminPath()+"/star/starUser/?repage";
 	}
+
+
+	/**
+	 * 选择star用户
+	 <sys:treeselect id="starUser" name="id" value="${starUser.id}" labelName="name"
+	                              labelValue="${fnz:getStarUserName(starUser.id)}"
+	                              title="用户" url="/star/starUser/treeData" cssClass="" allowClear="true"
+	                              notAllowSelectParent="true"/>
+	 * @param response
+	 * @return
+	 */
+	@RequiresPermissions("user")
+	@ResponseBody
+	@RequestMapping(value = "treeData")
+	public List<Map<String, Object>> treeData(HttpServletResponse response) {
+		List<Map<String, Object>> mapList = Lists.newArrayList();
+		List<StarUser> list = starUserService.findList(new StarUser());
+		for (int i=0; i<list.size(); i++){
+			StarUser e = list.get(i);
+			Map<String, Object> map = Maps.newHashMap();
+			map.put("id", "u_"+e.getId());
+			map.put("name", StringUtils.replace(e.getLoginName(), " ", ""));
+			mapList.add(map);
+		}
+		return mapList;
+	}
+
 
 }

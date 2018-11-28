@@ -31,67 +31,75 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "${adminPath}/star/starAlbum")
 public class StarAlbumController extends BaseController {
 
-	@Autowired
-	private StarAlbumService starAlbumService;
+    @Autowired
+    private StarAlbumService starAlbumService;
 
-	@Autowired
-	private StarPhotoService starPhotoService ;
+    @Autowired
+    private StarPhotoService starPhotoService;
 
-	
-	@ModelAttribute
-	public StarAlbum get(@RequestParam(required=false) String id) {
-		StarAlbum entity = null;
-		if (StringUtils.isNotBlank(id)){
-			entity = starAlbumService.get(id);
-		}
-		if (entity == null){
-			entity = new StarAlbum();
-		}
-		return entity;
-	}
-	
-	@RequiresPermissions("star:starAlbum:view")
-	@RequestMapping(value = {"list", ""})
-	public String list(StarAlbum starAlbum, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<StarAlbum> page = starAlbumService.findPage(new Page<StarAlbum>(request, response), starAlbum); 
-		model.addAttribute("page", page);
-		return "zh/star/starAlbumList";
-	}
 
-	@RequiresPermissions("star:starAlbum:view")
-	@RequestMapping(value = "form")
-	public String form(StarAlbum starAlbum, Model model) {
+    @ModelAttribute
+    public StarAlbum get(@RequestParam(required = false) String id) {
+        StarAlbum entity = null;
+        if (StringUtils.isNotBlank(id)) {
+            entity = starAlbumService.get(id);
+        }
+        if (entity == null) {
+            entity = new StarAlbum();
+        }
+        return entity;
+    }
+
+    @RequiresPermissions("star:starAlbum:view")
+    @RequestMapping(value = {"list", ""})
+    public String list(StarAlbum starAlbum, HttpServletRequest request, HttpServletResponse response, Model model) {
+        Page<StarAlbum> page = starAlbumService.findPage(new Page<StarAlbum>(request, response), starAlbum);
+        model.addAttribute("page", page);
+        model.addAttribute("starAlbum", starAlbum);
+        return "zh/star/starAlbumList";
+    }
+
+    @RequiresPermissions("star:starAlbum:view")
+    @RequestMapping(value = "form")
+    public String form(StarAlbum starAlbum, Model model) {
 
 //		String photoList = starAlbum.getPhotoUrls();
-		model.addAttribute("starAlbum", starAlbum);
+        model.addAttribute("starAlbum", starAlbum);
 
-		return "zh/star/starAlbumForm";
-	}
+        return "zh/star/starAlbumForm";
+    }
 
-	@RequiresPermissions("star:starAlbum:edit")
-	@RequestMapping(value = "save")
-	public String save(StarAlbum starAlbum, Model model, RedirectAttributes redirectAttributes) {
-		if (!beanValidator(model, starAlbum)){
-			return form(starAlbum, model);
-		}
- 		starAlbumService.save(starAlbum);
+    @RequiresPermissions("star:starAlbum:edit")
+    @RequestMapping(value = "save")
+    public String save(StarAlbum starAlbum, Model model, RedirectAttributes redirectAttributes) {
+        if (!beanValidator(model, starAlbum)) {
+            return form(starAlbum, model);
+        }
+        starAlbumService.save(starAlbum);
 
-		addMessage(redirectAttributes, "保存相册成功");
-		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
-	}
-	
-	@RequiresPermissions("star:starAlbum:edit")
-	@RequestMapping(value = "delete")
-	public String delete(StarAlbum starAlbum, RedirectAttributes redirectAttributes) {
-		starAlbumService.delete(starAlbum);
-		addMessage(redirectAttributes, "删除相册成功");
-		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
-	}
-	@RequestMapping(value = "albumClick")
-	public String albumClick() {
-		System.out.println("-----------WZP.print-----------" + 1 + ", 当前类=StarAlbumController.albumClick()");
-//		starAlbum.setShowCount(starAlbum.getShowCount()+1);
-		return "redirect:"+Global.getAdminPath()+"/star/starAlbum/?repage";
-	}
+        addMessage(redirectAttributes, "保存相册成功");
+        return "redirect:" + Global.getAdminPath() + "/star/starAlbum/?repage";
+    }
+
+    @RequiresPermissions("star:starAlbum:edit")
+    @RequestMapping(value = "delete")
+    public String delete(StarAlbum starAlbum, RedirectAttributes redirectAttributes) {
+        starAlbumService.delete(starAlbum);
+        addMessage(redirectAttributes, "删除相册成功");
+        return "redirect:" + Global.getAdminPath() + "/star/starAlbum/?repage";
+    }
+
+    /**
+     * 访问相册 访问次数+1
+     */
+    @RequestMapping(value = "albumClick")
+    public void albumClick(StarAlbum starAlbum) {
+        System.out.println("-----------WZP.print-----------" + "访问相册次数加1" + ", 当前类=StarAlbumController.albumClick()");
+        if (starAlbum != null) {
+            Integer showCount = starAlbum.getShowCount();
+            starAlbum.setShowCount(showCount != null ? showCount + 1 : 0);
+            starAlbumService.save(starAlbum);
+        }
+    }
 
 }

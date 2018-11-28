@@ -65,29 +65,7 @@
 <!-- Body1 -->
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
-<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript">
-    var $lightGallery = $;	//新的命名
-</script>
-<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
 
-<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
-<script>
-    window.onload = function(){
-        setTimeout(lightGallery,2000);
-    };
-    function lightGallery() {
-        $(".lightGalleryBox a").each(function(){
-            var id = $(this).children("span").text();
-            var s  = $(this).parent();
-            $.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
-                    s.append(result);
-                }
-            });
-        });
-        $lightGallery(".lightGalleryBox").lightGallery();
-    };
-</script>
 <!-- Supportive-JavaScript -->
 <script src="${ctxStatic}/zh/js/modernizr.js"></script>
 <!-- //Supportive-JavaScript -->
@@ -140,7 +118,6 @@
 					<a href="#0" class="cd-loginclose" style="font-size: 54px;">×</a>
 				</div>
 				<form id="loginform" onsubmit="return false" action="##" class="login100-form validate-form" >
-				<%--<form id="loginform"  class="login100-form validate-form"  >--%>
 					<span class="login100-form-title p-b-49">登录</span>
 
 					<div class="wrap-input100 validate-input m-b-23" data-validate="请输入用户名">
@@ -168,7 +145,7 @@
 						<span id="resultMsg"   hidden="hidden"> </span>
 					</div>
 
-					<div class="txt1 text-center p-t-54 p-b-20">
+					<%--<div class="txt1 text-center p-t-54 p-b-20">
 						<span>第三方登录</span>
 					</div>
 
@@ -184,10 +161,10 @@
 						<a href="#" class="login100-social-item bg3">
 							<i class="fa fa-weibo"></i>
 						</a>
-					</div>
+					</div>--%>
 
 					<div class="flex-col-c p-t-25">
-						<a href="javascript:" class="txt2">立即注册</a>
+						<a href="${ctx}/star/register" class="txt2">立即注册</a>
 					</div>
 				</form>
 			</div>
@@ -212,6 +189,7 @@
 					</c:if>
 					<c:if test="${empty starUserName}">
 						<li><a class="cd-login" href="#0">登录</a></li>
+						<li><a class="cd-register" href="#0">注册</a></li>
 					</c:if>
 					<%--<li><a class="scroll" href="#agileaboutaitsabout">关于</a></li>
 					<li><a class="scroll" href="#w3threespecialityw3ls">图片</a></li>
@@ -328,7 +306,7 @@
 			<div class="grid cs-style-3">
 					<c:forEach items="${starAlbumlist}" var="p">
 							<div class="col-md-4 col-sm-4 w3threespecialityw3ls-grid grid1" style="width: 350px;height: 350px;margin-left: 5px">
-								<div class="lightGalleryBox" onclick="albumClick();">
+								<div class="lightGalleryBox" onclick="albumClick(alert(1));">
 									<a data-src="${uploadfile}${p.url}" data-title="${p.name}" >
 										<span hidden="hidden">${p.id}</span>
 										<figure>
@@ -337,6 +315,7 @@
 											</div>
 											<figcaption class="album-front">
 												<h3>${p.name}</h3>
+												<h4 style="text-align: right;font-size: 5px">作者：${p.starUser.loginName}&nbsp;&nbsp;浏览次数：${p.showCount}&nbsp;&nbsp;</h4>
 											</figcaption>
 										</figure>
 									</a>
@@ -377,7 +356,7 @@
 
 			<!-- Stats -->
 			<div class="stats">
-				<h3>生活八卦/新闻活动</h3>
+				<h3>生活八卦/新闻活动（暂未开发..）</h3>
 
 				<div class="stats-info">
 					<div class="col-md-3 col-sm-3 stats-grid stats-grid-1">
@@ -420,7 +399,7 @@
 
 	<!-- Portfolio -->
 	<div class="portfolio" id="portfolio">
-		<h3>影视综艺</h3>
+		<h3>影视综艺（暂未开发..）</h3>
 
 		<div class="tabs tabs-style-bar">
 			<nav>
@@ -909,14 +888,35 @@
 
 			<!-- Copyright -->
 			<div class="copyright">
-				<p>&copy; 2018 zprealm.cn 版权所有 京ICP备18005722号-1 </p>
+				<p>&copy; 2018 zprealm.cn 版权所有 备案:京ICP备18005722号-1 </p>
 			</div>
 			<!-- //Copyright -->
 
 		</div>
 	</div>
 	<!-- //Footer -->
-
+		<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			var $lightGallery = $;	//新的命名
+		</script>
+		<script src="${ctxStatic}/zh/js/lightGallery.js"></script>
+		<link rel="stylesheet"  href="${ctxStatic}/zh/css/lightGallery.css"/>
+		<script>
+			window.onload = function(){
+				setTimeout(lightGallery,2000);
+			};
+			function lightGallery() {
+				$(".lightGalleryBox a").each(function(){
+					var id = $(this).children("span").text();
+					var s  = $(this).parent();
+					$.ajax({url:"${ctx}/alubmPhotoList",data:{id:id},async:false,success:function(result){
+							s.append(result);
+						}
+					});
+				});
+				$lightGallery(".lightGalleryBox").lightGallery();
+			};
+		</script>
 
 
 	<!-- Custom-JavaScript-File-Links -->

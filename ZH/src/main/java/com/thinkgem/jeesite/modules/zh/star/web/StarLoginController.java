@@ -1,5 +1,6 @@
 package com.thinkgem.jeesite.modules.zh.star.web;
 
+import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.utils.MD5Util;
 import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.zh.star.entity.StarUser;
@@ -16,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description
@@ -30,13 +33,31 @@ public class StarLoginController extends BaseController {
     @Autowired
     private StarUserService starUserService;
 
+    @RequestMapping(value = "register", method = RequestMethod.GET)
+    @ResponseBody
+    public Result register(StarUser starUser ,HttpServletRequest request,  Model model) {
+        Result result = new Result();
+        if (!beanValidator(model, starUser)){
+            result.setSuccess(false);
+            result.setResultMsg("信息不完整");
+        }
+        String pass = MD5Util.getMD5(starUser.getPassword());
+        starUser.setPassword(pass);
+        starUser.setIsFansadmin(Global.NO);
+        starUser.setLoginFlag(Global.YES);
+        starUserService.save(starUser);
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("loginName",starUser.getLoginName());
+        result.setMap(map);
+        return result;
+    }
+
     /**
      * star模块用户登录  前台  ajax访问
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public Result login(HttpServletRequest request, HttpServletResponse response, Model model) {
-
         Result result = new Result();
         String username = request.getParameter("username");
         String pass = request.getParameter("pass");

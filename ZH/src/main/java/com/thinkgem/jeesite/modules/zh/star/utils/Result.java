@@ -2,6 +2,8 @@ package com.thinkgem.jeesite.modules.zh.star.utils;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import java.util.Map;
+
 /**
  * @description
  * @author wzp
@@ -19,6 +21,7 @@ public class Result {
     private String resultMsg;
 
 
+    private Map<String,Object> map;
 
     /**
      * 返回值，类型为T
@@ -48,6 +51,14 @@ public class Result {
 
     public void setT(T t) {
         this.t = t;
+    }
+
+    public Map<String, Object> getMap() {
+        return map;
+    }
+
+    public void setMap(Map<String, Object> map) {
+        this.map = map;
     }
 
     @Override

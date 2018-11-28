@@ -16,6 +16,9 @@ jQuery(document).ready(function($){
 	$('.cd-login').on('click',function () {
         $("#loginWindow").show();
     });
+    $('.cd-register').on('click',function () {
+        $("#registerWindow").show();
+    });
     $('.cd-loginclose').on('click',function () {
         $("#loginWindow").hide();
         triggerBouncyNav(false);

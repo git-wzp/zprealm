@@ -21,5 +21,13 @@
     <function-signature>java.lang.String getStarName(java.lang.String)</function-signature>
     <example>${fns:getStarName(id)}</example>
   </function>
+
+  <function>
+    <description>获取star用户姓名</description>
+    <name>getStarUserName</name>
+    <function-class>com.thinkgem.jeesite.modules.zh.star.utils.starUtils</function-class>
+    <function-signature>java.lang.String getStarUserName(java.lang.String)</function-signature>
+    <example>${fns:getStarUserName(id)}</example>
+  </function>
   
 </taglib>

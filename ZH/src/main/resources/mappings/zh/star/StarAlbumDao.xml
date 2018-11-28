@@ -4,10 +4,10 @@
     
 	<sql id="starAlbumColumns">
 		a.id AS "id",
-		a.user_id AS "user.id",
-		a.name AS "name",
+		a.user_id AS "starUser.id",
 		a.star_ids AS "starIds",
 		a.url AS "url",
+		a.name AS "name",
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
@@ -16,11 +16,12 @@
 		a.show_count AS "showCount",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		u2.name AS "user.name"
+		u2.name AS "starUser.name",
+		u2.login_name AS "starUser.loginName"
 	</sql>
 	
 	<sql id="starAlbumJoins">
-		LEFT JOIN sys_user u2 ON u2.id = a.user_id
+		LEFT JOIN star_user u2 ON u2.id = a.user_id
 	</sql>
     
 	<select id="get" resultType="StarAlbum">
@@ -53,8 +54,8 @@
 		<include refid="starAlbumJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="user != null and user.id != null and user.id != ''">
-				AND a.user_id = #{user.id}
+			<if test="starUser != null and starUser.id != null and starUser.id != ''">
+				AND a.user_id = #{starUser.id}
 			</if>
 			<if test="name != null and name != ''">
 				AND a.name LIKE 
@@ -101,9 +102,9 @@
 		INSERT INTO star_album(
 			id,
 			user_id,
-			name,
 			star_ids,
 			url,
+			name,
 			create_by,
 			create_date,
 			update_by,
@@ -114,10 +115,10 @@
 			del_flag
 		) VALUES (
 			#{id},
-			#{user.id},
-			#{name},
+			#{starUser.id},
 			#{starIds},
 			#{url},
+			#{name},
 			#{createBy.id},
 			#{createDate},
 			#{updateBy.id},
@@ -131,7 +132,7 @@
 	
 	<update id="update">
 		UPDATE star_album SET 	
-			user_id = #{user.id},
+			user_id = #{starUser.id},
 			name = #{name},
 			star_ids = #{starIds},
 			url = #{url},

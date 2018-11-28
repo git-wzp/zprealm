@@ -30,9 +30,9 @@
     <input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
     <ul class="ul-form">
         <li><label>所属用户：</label>
-            <sys:treeselect id="user" name="user.id" value="${starAlbum.user.id}" labelName="user.name"
-                            labelValue="${starAlbum.user.name}"
-                            title="用户" url="/sys/office/treeData?type=3" cssClass="input-small" allowClear="true"
+            <sys:treeselect id="starUser" name="starAlbum.starUser.id" value="${starAlbum.starUser.id}" labelName="starAlbum.starUser.loginName"
+                            labelValue="${fnz:getStarUserName(starAlbum.starUser.id)}"
+                            title="用户" url="/star/starUser/treeData" cssClass="" allowClear="true"
                             notAllowSelectParent="true"/>
         </li>
         <li><label>所属明星：</label>
@@ -60,6 +60,7 @@
         <th>相册名称</th>
         <th>所属明星</th>
         <th>相册封面</th>
+        <th>提供用户</th>
         <th>更新时间</th>
         <th>浏览次数</th>
         <th>备注信息</th>
@@ -79,6 +80,9 @@
             </td>
             <td>
                 <img src="${uploadfile}${starAlbum.url}" style="width: 110px;height: 150px">
+            </td>
+            <td>
+                 ${starAlbum.starUser.loginName}
             </td>
             <td>
                 <fmt:formatDate value="${starAlbum.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>

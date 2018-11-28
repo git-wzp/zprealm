@@ -84,12 +84,12 @@ public class FrontController extends BaseController {
 //		是否登录 如果登录 只展示守护星
         StarUser starUser = null;
         StarAlbum starAlbum = new StarAlbum();
-//        人物信息
         List<StarStarmessage> starMessageList = new ArrayList<StarStarmessage>();
         if (starUtils.isStarLogin(request)) {
             starUser = starUtils.getCurrentUser(request);
             starAlbum.setStarIds(starUser.getStarId());
         }
+
 //		TODO：前台首页需要的图片 选取人气最高的5位明星 各一张背景图片
         List<StarPhoto> bgPhoto = starPhotoService.findListBGPhoto("5", starUser);
         model.addAttribute("bgPhoto", bgPhoto);
@@ -98,11 +98,18 @@ public class FrontController extends BaseController {
         }
         model.addAttribute("starMessageList", starMessageList);
 //		为你代颜 相册
-        List<StarAlbum> starAlbumlist = starAlbumService.findPage(new Page<StarAlbum>(1, 6), starAlbum).getList();
+        Page<StarAlbum> starAlbumPage = new Page<StarAlbum>(1, 6);
+        starAlbumPage.setOrderBy("show_count DESC");
+        List<StarAlbum> starAlbumlist = starAlbumService.findPage(starAlbumPage, starAlbum).getList();
         model.addAttribute("starAlbumlist", starAlbumlist);
         return "modules/cms/front/themes/" + site.getTheme() + "/frontIndex";
     }
 
+    /**
+     * 模块首页延迟加载 相册图片
+     * @param id
+     * @return
+     */
     @RequestMapping("alubmPhotoList")
     @ResponseBody
     public String alubmPhotoList(@RequestParam("id") String id) {
