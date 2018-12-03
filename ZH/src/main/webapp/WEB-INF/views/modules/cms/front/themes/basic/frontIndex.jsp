@@ -171,6 +171,11 @@
 		</div>
 	</div>
 </div>
+<div id="registerWindow" hidden="hidden" style="z-index: 200;background-color: white; ">
+	<div style="align-content: center;color: red">注册窗口</div>
+</div>
+
+
 <script type="text/javascript" src="${ctxStatic}/zh/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="${ctxStatic}/zh/js/login_validate.js"></script>
 
