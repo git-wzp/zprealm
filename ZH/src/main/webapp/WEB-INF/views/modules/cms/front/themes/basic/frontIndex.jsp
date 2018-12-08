@@ -70,6 +70,10 @@
 <script src="${ctxStatic}/zh/js/modernizr.js"></script>
 <!-- //Supportive-JavaScript -->
 
+
+<script type="text/javascript" src="${ctxStatic}/zh/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="${ctxStatic}/zh/js/login_validate.js"></script>
+
 <script type="text/javascript">
 	$(function () {
 		$("#loginbtn").on("click",function(){
@@ -175,9 +179,6 @@
 	<div style="align-content: center;color: red">注册窗口</div>
 </div>
 
-
-<script type="text/javascript" src="${ctxStatic}/zh/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="${ctxStatic}/zh/js/login_validate.js"></script>
 
 	<!-- Header -->
 	<div class="agileheaderw3ls" id="agilehomewthree">
