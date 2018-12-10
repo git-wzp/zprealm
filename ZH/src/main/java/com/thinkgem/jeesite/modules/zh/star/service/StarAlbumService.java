@@ -40,10 +40,11 @@ public class StarAlbumService extends CrudService<StarAlbumDao, StarAlbum> {
     public StarAlbum get(String id) {
         StarAlbum starAlbum = super.get(id);
         if(starAlbum!=null){
+//            为相册添加图片集合
             List<StarPhoto> photoList = starPhotoAlbumDao.findListByAlbum(starAlbum);
             starAlbum.setPhotoList(photoList);
             List photoUrls = starAlbumDao.getPhotoUrls(id);
-            starAlbum.setPhotoUrls(photoUrls.toString().replace(",", "|").replace("[", "").replace("]", ""));
+            starAlbum.setPhotoUrls(photoUrls.toString().replace(", ", "|").replace("[", "").replace("]", ""));
         }
         return starAlbum;
     }
@@ -80,7 +81,7 @@ public class StarAlbumService extends CrudService<StarAlbumDao, StarAlbum> {
                     starP.setStarId(starAlbum.getStarIds());
                     starP.setType("3"); //默认设置类型为生活照片
                     starP.setRemarks("保存相册时添加图片");
-                    starPhotoDao.insert(starP);
+                    starPhotoDao.insert(starP);//这里直接插入 因为前面有操作删除掉相册的所有图片
                 list1.add(s);
             }
         }
